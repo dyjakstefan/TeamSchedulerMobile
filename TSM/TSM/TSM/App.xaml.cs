@@ -8,12 +8,20 @@ namespace TSM
 {
     public partial class App : Application
     {
+        public static bool IsUserLoggerdIn { get; set; }
 
         public App()
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            if (IsUserLoggerdIn)
+            {
+                MainPage = new MainPage();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()

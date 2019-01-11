@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TSM.Annotations;
+using TSM.Models;
 using TSM.Services;
+using TSM.Views;
 using Xamarin.Forms;
 
 namespace TSM.ViewModels
@@ -17,8 +20,6 @@ namespace TSM.ViewModels
         private string email;  
 
         private string password;
-
-        public Action DisplayInvalidLoginPrompt;
 
         public string Email
         {
@@ -36,15 +37,22 @@ namespace TSM.ViewModels
 
         public LoginViewModel()
         {
-            SubmitCommand = new Command(OnSubmit);
+            SubmitCommand = new Command(async () => await OnSubmit());
         }
 
-        public async void OnSubmit()
+        public async Task OnSubmit()
         {
-            var token = await authService.Login(email, password);
-            if (email != "a" || password != "a")
+            try
             {
-                DisplayInvalidLoginPrompt();
+                var token = await authService.Login(email, password);
+                token.CreatedAt = DateTime.Now;
+                await LocalDatabase.InsertSingle(token);
+                App.IsUserLoggerdIn = true;
+                Application.Current.MainPage = new MainPage();
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Invalid Login, try again", "OK");
             }
         }
         

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TSM.Dto;
+using TSM.Models;
 
 namespace TSM.Services
 {
@@ -37,7 +38,7 @@ namespace TSM.Services
             }
         }
 
-        public async Task<JwtDto> Login(string email, string password)
+        public async Task<Jwt> Login(string email, string password)
         {
             var guid = Guid.NewGuid();
             var request = new HttpRequestMessage(HttpMethod.Post, "users/login")
@@ -46,7 +47,8 @@ namespace TSM.Services
             };
 
             var response = await client.SendAsync(request);
-            return JsonConvert.DeserializeObject<JwtDto>(await response.Content.ReadAsStringAsync());
+            response.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<Jwt>(await response.Content.ReadAsStringAsync());
         }
     }
 }

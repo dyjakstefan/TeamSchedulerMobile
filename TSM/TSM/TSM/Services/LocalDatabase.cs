@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace TSM.Services
 {
-    public static class DatabaseHelper
+    public static class LocalDatabase
     {
         public static SQLiteAsyncConnection Database { get; private set; }
         private static bool initialized;
@@ -17,8 +17,9 @@ namespace TSM.Services
         {
             if (Database == null)
             {
-                Database = new SQLiteAsyncConnection(Xamarin.Forms.DependencyService.Get<IFileHelper>().GetLocalFilePath("xamarin_db.db3"));
+                Database = new SQLiteAsyncConnection(DependencyService.Get<IFileHelper>().GetLocalFilePath("xamarin_db.db3"));
                 await Database.CreateTableAsync<User>();
+                await Database.CreateTableAsync<Jwt>();
             }
         }
 

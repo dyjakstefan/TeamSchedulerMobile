@@ -20,6 +20,7 @@ namespace TSM.Models
         [MaxLength(25)]
         public string PhoneNumber { get; set; }
 
-        public virtual List<Member> Members { get; set; }
+        [Ignore]
+        public List<Member> Members { get; set; }
     }
 }

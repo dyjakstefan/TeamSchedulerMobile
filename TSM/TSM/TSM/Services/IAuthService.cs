@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TSM.Dto;
+using TSM.Models;
 
 namespace TSM.Services
 {
     public interface IAuthService
     {
         Task CreateUser(UserDto user);
-        Task<JwtDto> Login(string email, string password);
+        Task<Jwt> Login(string email, string password);
     }
 }

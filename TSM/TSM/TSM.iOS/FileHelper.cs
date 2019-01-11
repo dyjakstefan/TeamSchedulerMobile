@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
-using SQLite;
+using TSM.iOS;
 using TSM.Services;
+
+[assembly: Xamarin.Forms.Dependency(typeof(FileHelper))]
 
 namespace TSM.iOS
 {

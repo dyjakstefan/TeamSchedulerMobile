@@ -19,7 +19,6 @@ namespace TSM.Views
 		    InitializeComponent();
             viewModel = new LoginViewModel();
 		    BindingContext = viewModel;
-		    viewModel.DisplayInvalidLoginPrompt += () => DisplayAlert("Error", "Invalid Login, try again", "OK");
 		    Email.Completed += (sender, e) => { Password.Focus(); };
 		    Password.Completed += (sender, e) => { viewModel.SubmitCommand.Execute(null); };
 		}
