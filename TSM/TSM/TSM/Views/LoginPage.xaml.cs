@@ -17,10 +17,16 @@ namespace TSM.Views
 		public LoginPage ()
 		{
 		    InitializeComponent();
-            viewModel = new LoginViewModel();
+            viewModel = new LoginViewModel(Navigation);
 		    BindingContext = viewModel;
 		    Email.Completed += (sender, e) => { Password.Focus(); };
 		    Password.Completed += (sender, e) => { viewModel.SubmitCommand.Execute(null); };
 		}
-	}
+
+	    private async void SignUpClicked(object sender, EventArgs e)
+	    {
+	        await Navigation.PushAsync(new RegisterPage());
+	    }
+
+    }
 }

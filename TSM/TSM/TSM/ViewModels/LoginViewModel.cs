@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,11 +34,14 @@ namespace TSM.ViewModels
             set { SetProperty(ref password, value); }
         }
 
-        public ICommand SubmitCommand { protected set; get; }
+        public INavigation Navigation;
 
-        public LoginViewModel()
+        public ICommand SubmitCommand { get; protected set; }
+
+        public LoginViewModel(INavigation navigation)
         {
             SubmitCommand = new Command(async () => await OnSubmit());
+            Navigation = navigation;
         }
 
         public async Task OnSubmit()
@@ -47,8 +51,9 @@ namespace TSM.ViewModels
                 var token = await authService.Login(email, password);
                 token.CreatedAt = DateTime.Now;
                 await LocalDatabase.InsertSingle(token);
-                App.IsUserLoggerdIn = true;
-                Application.Current.MainPage = new MainPage();
+                App.IsUserLoggedIn = true;
+                Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
+                await Navigation.PopAsync();
             }
             catch (Exception e)
             {

@@ -8,19 +8,19 @@ namespace TSM
 {
     public partial class App : Application
     {
-        public static bool IsUserLoggerdIn { get; set; }
+        public static bool IsUserLoggedIn { get; set; }
 
         public App()
         {
             InitializeComponent();
 
-            if (IsUserLoggerdIn)
+            if (IsUserLoggedIn)
             {
-                MainPage = new MainPage();
+                MainPage = new NavigationPage(new MainPage());
             }
             else
             {
-                MainPage = new LoginPage();
+                MainPage = new NavigationPage(new LoginPage());
             }
         }
 

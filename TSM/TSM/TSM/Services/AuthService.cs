@@ -21,21 +21,15 @@ namespace TSM.Services
             client.BaseAddress = new Uri("http://192.168.1.65:45455/api/");
         }
 
-        public async Task CreateUser(UserDto user)
+        public async Task<Jwt> CreateUser(UserDto user)
         {
-            try
+            var request = new HttpRequestMessage(HttpMethod.Post, "users")
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, "users")
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")
-                };
-                var response = await client.SendAsync(request);
-                Debug.WriteLine("Response: {0}", response.StatusCode);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+                Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json")
+            };
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<Jwt>(await response.Content.ReadAsStringAsync());
         }
 
         public async Task<Jwt> Login(string email, string password)

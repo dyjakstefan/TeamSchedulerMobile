@@ -9,7 +9,7 @@ namespace TSM.Services
 {
     public interface IAuthService
     {
-        Task CreateUser(UserDto user);
+        Task<Jwt> CreateUser(UserDto user);
         Task<Jwt> Login(string email, string password);
     }
 }
