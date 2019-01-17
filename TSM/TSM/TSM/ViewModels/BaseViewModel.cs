@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 
 using TSM.Models;
@@ -14,7 +14,7 @@ namespace TSM.ViewModels
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
 
-        bool isBusy = false;
+        protected bool isBusy = false;
         public bool IsBusy
         {
             get { return isBusy; }

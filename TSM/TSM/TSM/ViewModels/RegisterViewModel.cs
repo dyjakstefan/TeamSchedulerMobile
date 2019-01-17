@@ -47,21 +47,38 @@ namespace TSM.ViewModels
             set { SetProperty(ref password, value); }
         }
 
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                SetProperty(ref isBusy, value);
+                RegisterCommand.ChangeCanExecute();
+            }
+        }
+
         public INavigation Navigation;
 
-        public ICommand RegisterCommand { get; protected set; }
+        public Command RegisterCommand { get; protected set; }
 
         public RegisterViewModel(INavigation navigation)
         {
-            RegisterCommand = new Command(async () => await OnRegisterClicked());
+            RegisterCommand = new Command(async () => await OnRegisterClicked(), () => !IsBusy);
             Navigation = navigation;
         }
 
         public async Task OnRegisterClicked()
         {
+            IsBusy = true;
             try
             {
-                var token = await authService.CreateUser(new UserDto {Email = email, FirstName = firstName, LastName = lastName, Password = password});
+                var token = await authService.CreateUser(new UserDto
+                {
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Password = password
+                });
                 token.CreatedAt = DateTime.Now;
                 await LocalDatabase.InsertSingle(token);
                 App.IsUserLoggedIn = true;
@@ -77,6 +94,10 @@ namespace TSM.ViewModels
             catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Invalid credentials.", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }
