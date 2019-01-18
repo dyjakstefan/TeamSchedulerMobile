@@ -9,7 +9,5 @@ namespace TSM.Models
         public string Token { get; set; }
 
         public long Expires { get; set; }
-
-        public DateTime CreatedAt { get; set; }
     }
 }

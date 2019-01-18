@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TSM.Annotations;
+using TSM.Extensions;
+using TSM.Helpers;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views;
@@ -59,10 +61,9 @@ namespace TSM.ViewModels
             IsBusy = true;
             try
             {
-                var token = await authService.Login(email, password);
-                token.CreatedAt = DateTime.Now;
-                await LocalDatabase.InsertSingle(token);
-                App.IsUserLoggedIn = true;
+                var jwt = await authService.Login(email, password);
+                Settings.AccessToken = jwt.Token;
+                Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
                 Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
                 await Navigation.PopAsync();
             }

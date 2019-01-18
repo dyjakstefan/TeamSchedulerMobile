@@ -1,4 +1,5 @@
 ﻿using System;
+using TSM.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TSM.Views;
@@ -14,7 +15,7 @@ namespace TSM
         {
             InitializeComponent();
 
-            if (IsUserLoggedIn)
+            if (string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate < DateTime.Now)
             {
                 MainPage = new NavigationPage(new MainPage());
             }

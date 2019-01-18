@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.Settings;
 using TSM.Dto;
+using TSM.Helpers;
 using TSM.Services;
 using TSM.Views;
 using Xamarin.Forms;
@@ -72,16 +74,14 @@ namespace TSM.ViewModels
             IsBusy = true;
             try
             {
-                var token = await authService.CreateUser(new UserDto
+                var jwt = await authService.CreateUser(new UserDto
                 {
                     Email = email,
                     FirstName = firstName,
                     LastName = lastName,
                     Password = password
                 });
-                token.CreatedAt = DateTime.Now;
-                await LocalDatabase.InsertSingle(token);
-                App.IsUserLoggedIn = true;
+                Settings.AccessToken = jwt.Token;
                 Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
                 var rootPage = Navigation.NavigationStack.FirstOrDefault();
                 if (rootPage != null)
