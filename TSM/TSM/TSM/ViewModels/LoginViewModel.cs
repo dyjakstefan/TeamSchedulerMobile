@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TSM.Annotations;
-using TSM.Extensions;
 using TSM.Helpers;
 using TSM.Models;
 using TSM.Services;
@@ -46,7 +45,7 @@ namespace TSM.ViewModels
             }
         }
 
-        public INavigation Navigation;
+        public INavigation Navigation { get; set; }
 
         public Command SubmitCommand { get; protected set; }
 

@@ -10,8 +10,8 @@ namespace TSM.Models
 
         public DayOfWeek DayOfWeek { get; set; }
 
-        public virtual Schedule Schedule { get; set; }
+        public Schedule Schedule { get; set; }
 
-        public virtual List<UnitOfWork> UnitsOfWorks { get; set; }
+        public List<UnitOfWork> UnitsOfWorks { get; set; }
     }
 }

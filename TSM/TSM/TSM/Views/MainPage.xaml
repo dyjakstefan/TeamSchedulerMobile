@@ -5,8 +5,6 @@
             x:Class="TSM.Views.MainPage"
             Title ="TSM">
     <TabbedPage.Children>
-        <ContentPage Title="Tab1">
-            <Label Text="Tab1!!!!" HorizontalOptions="Center" VerticalOptions="Center"/>
-        </ContentPage>
+        <views:TeamListPage/>
     </TabbedPage.Children>
 </TabbedPage>

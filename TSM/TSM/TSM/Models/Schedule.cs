@@ -20,8 +20,8 @@ namespace TSM.Models
 
         public int TeamId { get; set; }
 
-        public virtual Team Team { get; set; }
+        public Team Team { get; set; }
 
-        public virtual List<Day> Days { get; set; }
+        public List<Day> Days { get; set; }
     }
 }

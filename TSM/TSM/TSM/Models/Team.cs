@@ -10,8 +10,8 @@ namespace TSM.Models
 
         public string Address { get; set; }
 
-        public virtual List<Member> Members { get; set; }
+        public List<Member> Members { get; set; }
 
-        public virtual List<Schedule> Schedules { get; set; }
+        public List<Schedule> Schedules { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TSM.Dto;
+using TSM.Helpers;
 using TSM.Models;
 
 namespace TSM.Services
@@ -18,9 +19,8 @@ namespace TSM.Services
         {
             client = new HttpClient();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.BaseAddress = new Uri("http://192.168.1.65:45455/api/");
+            client.BaseAddress = new Uri(Settings.BaseAddress);
         }
-
 
         public async Task<Jwt> CreateUser(UserDto user)
         {

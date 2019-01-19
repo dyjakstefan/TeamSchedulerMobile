@@ -22,5 +22,11 @@ namespace TSM.Helpers
             get { return AppSettings.GetValueOrDefault("AccessTokenExpirationDate", DateTime.UtcNow); }
             set { AppSettings.AddOrUpdateValue("AccessTokenExpirationDate", value); }
         }
+
+        public static string BaseAddress
+        {
+            get { return AppSettings.GetValueOrDefault("BaseAddress", ""); }
+            set { AppSettings.AddOrUpdateValue("BaseAddress", value); }
+        }
     }
 }

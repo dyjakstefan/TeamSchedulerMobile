@@ -82,6 +82,7 @@ namespace TSM.ViewModels
                     Password = password
                 });
                 Settings.AccessToken = jwt.Token;
+                Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
                 Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
                 var rootPage = Navigation.NavigationStack.FirstOrDefault();
                 if (rootPage != null)

@@ -12,8 +12,8 @@ namespace TSM.Models
 
         public bool IsAccepted { get; set; }
 
-        public virtual Day Day { get; set; }
+        public Day Day { get; set; }
 
-        public virtual Member Member { get; set; }
+        public Member Member { get; set; }
     }
 }

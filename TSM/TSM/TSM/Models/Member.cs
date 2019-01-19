@@ -17,10 +17,10 @@ namespace TSM.Models
 
         public int TeamId { get; set; }
 
-        public virtual User User { get; set; }
+        public User User { get; set; }
 
-        public virtual Team Team { get; set; }
+        public Team Team { get; set; }
 
-        public virtual List<UnitOfWork> UnitsOfWork { get; set; }
+        public List<UnitOfWork> UnitsOfWork { get; set; }
     }
 }
