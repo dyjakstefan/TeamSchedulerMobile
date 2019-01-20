@@ -6,11 +6,11 @@ using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
 
-namespace TSM.ViewModels
+namespace TSM.ViewModels.TeamVM
 {
     public class NewTeamViewModel : BaseViewModel
     {
-        private ITeamService teamService => DependencyService.Get<ITeamService>() ?? new TeamService();
+        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
         private string name;
 
@@ -20,7 +20,7 @@ namespace TSM.ViewModels
             set { SetProperty(ref name, value); }
         }
 
-        public bool IsBusy
+        public new bool IsBusy
         {
             get { return isBusy; }
             set
@@ -40,13 +40,13 @@ namespace TSM.ViewModels
             Navigation = navigation;
         }
 
-        public async Task AddTeam()
+        protected async Task AddTeam()
         {
             IsBusy = true;
             try
             {
                 var team = new Team {Name = this.Name};
-                await teamService.Add(team);
+                await apiService.Add(team, "teams");
                 MessagingCenter.Send(this, "AddTeam");
                 await Navigation.PopAsync();
             }

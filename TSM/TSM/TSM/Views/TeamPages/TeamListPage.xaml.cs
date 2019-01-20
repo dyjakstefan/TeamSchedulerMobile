@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TSM.Models;
 using TSM.ViewModels;
+using TSM.ViewModels.TeamVM;
+using TSM.Views.TeamPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -34,9 +36,23 @@ namespace TSM.Views
 	        TeamListView.SelectedItem = null;
 	    }
 
-	    private async void AddTeam_Clicked(object sender, EventArgs e)
+	    private async void OnAddTeamClicked(object sender, EventArgs e)
 	    {
 	        await Navigation.PushAsync(new NewTeamPage());
+	    }
+
+	    private async void OnEditTeamClicked(object sender, EventArgs e)
+	    {
+	        var menuItem = (MenuItem)sender;
+	        var team = (Team)menuItem.CommandParameter;
+            await Navigation.PushAsync(new EditTeamPage(team));
+	    }
+
+	    private void OnDeleteTeamClicked(object sender, EventArgs e)
+	    {
+            var menuItem = (MenuItem)sender;
+            var team = (Team)menuItem.CommandParameter;
+	        viewModel.DeleteTeamCommand.Execute(team);
 	    }
 
 	    protected override void OnAppearing()

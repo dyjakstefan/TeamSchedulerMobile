@@ -14,7 +14,7 @@ namespace TSM
         public App()
         {
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.1.65:45455/api/";
+            Settings.BaseAddress = "http://192.168.0.104:45455/api/";
 
             if (string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate < DateTime.Now)
             {

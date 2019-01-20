@@ -11,7 +11,7 @@ using TSM.Services;
 using TSM.Views;
 using Xamarin.Forms;
 
-namespace TSM.ViewModels
+namespace TSM.ViewModels.AuthVM
 {
     public class RegisterViewModel : BaseViewModel
     {
@@ -49,7 +49,7 @@ namespace TSM.ViewModels
             set { SetProperty(ref password, value); }
         }
 
-        public bool IsBusy
+        public new bool IsBusy
         {
             get { return isBusy; }
             set
