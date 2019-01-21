@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TSM.Models;
 using TSM.ViewModels;
 using TSM.ViewModels.TeamVM;
+using TSM.Views.MemberPages;
 using TSM.Views.TeamPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -24,7 +25,7 @@ namespace TSM.Views
 		    BindingContext = viewModel;
 		}
 
-	    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+	    private async void OnTeamSelected(object sender, SelectedItemChangedEventArgs args)
 	    {
 	        var team = args.SelectedItem as Team;
 	        if (team == null)
@@ -32,7 +33,7 @@ namespace TSM.Views
 	            return;
             }
 
-	        await Navigation.PushAsync(new LoginPage());
+	        await Navigation.PushAsync(new MemberListPage(team));
 	        TeamListView.SelectedItem = null;
 	    }
 
@@ -58,11 +59,7 @@ namespace TSM.Views
 	    protected override void OnAppearing()
 	    {
             base.OnAppearing();
-
-	        if (viewModel.Teams.Count == 0)
-	        {
-                viewModel.LoadTeamsCommand.Execute(null);
-	        }
+            viewModel.LoadTeamsCommand.Execute(null);
 	    }
 	}
 }

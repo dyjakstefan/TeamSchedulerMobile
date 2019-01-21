@@ -54,8 +54,7 @@ namespace TSM.ViewModels.TeamVM
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
             finally
             {

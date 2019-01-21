@@ -1,31 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TSM.Views.TeamListPage"
-             Title="Teams"
-             x:Name="BrowseTeamsPage">
+             x:Class="TSM.Views.MemberPages.MemberListPage"             
+             Title="Members">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="OnAddTeamClicked" />
+        <ToolbarItem Text="Add" Command="{Binding OnAddMemberCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="TeamListView" 
+            <ListView x:Name="MemberListView" 
                       HasUnevenRows="True" 
-                      ItemsSource="{Binding Teams}" 
-                      ItemSelected="OnTeamSelected" 
-                      RefreshCommand="{Binding LoadTeamsCommand}"
+                      ItemsSource="{Binding Members}" 
+                      ItemSelected="OnMemberSelected" 
+                      RefreshCommand="{Binding LoadMembersCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Text="Edit" Clicked="OnEditTeamClicked" CommandParameter="{Binding .}" x:Name="EditTeam"/>
-                                <MenuItem Text="Delete" Clicked="OnDeleteTeamClicked" CommandParameter="{Binding .}" x:Name="DeleteTeam"/>
-                            </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
-                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                                <Label Text="{Binding UserId}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
                                 <Label Text="aaaaa"/>
                             </StackLayout>
                         </ViewCell>
