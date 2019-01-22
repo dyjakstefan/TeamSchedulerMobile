@@ -29,17 +29,12 @@ namespace TSM.ViewModels.MemberVM
             teamId = team.Id;
             Members = new ObservableCollection<Member>(team.Members);
             LoadMembersCommand = new Command(async () => await LoadMembers());
-            OnAddMemberCommand = new Command(async () => await OnAddMember());
+            OnAddMemberCommand = new Command(async () => await OnAddMember(), () => !IsBusy);
             Navigation = navigation;
-
-            MessagingCenter.Subscribe<NewMemberViewModel>(this, "AddMember", async (obj) => await LoadMembers());
         }
 
         private async Task LoadMembers()
         {
-            if (isBusy)
-                return;
-
             IsBusy = true;
 
             try

@@ -6,6 +6,8 @@ namespace TSM.Dto
 {
     public class MemberDto
     {
+        public int MemberId { get; set; }
+
         public int TeamId { get; set; }
 
         public string Email { get; set; }

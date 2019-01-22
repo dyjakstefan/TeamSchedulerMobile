@@ -55,12 +55,11 @@ namespace TSM.Services
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task Delete(int id, string url)
+        public async Task Delete<T>(T payload, string url)
         {
-            var teamId = new {Id = id};
             var request = new HttpRequestMessage(HttpMethod.Delete, url)
             {
-                Content = new StringContent(JsonConvert.SerializeObject(teamId), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json")
             };
             var response = await client.SendAsync(request);
             response.EnsureSuccessStatusCode();

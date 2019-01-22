@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TSM.Views.MemberPages.MemberDetailsPage"
+             Title="Member">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Name" FontSize="Medium" />
+            <Entry x:Name="HoursEntry" Text="{Binding Hours}" FontSize="Small" />
+            <Button Command="{Binding EditMemberCommand}" Text="Save" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#3897F0" HeightRequest="50"/>
+            <Button Command="{Binding DeleteMemberCommand}" Text="Delete Member" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#3897F0" HeightRequest="50"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

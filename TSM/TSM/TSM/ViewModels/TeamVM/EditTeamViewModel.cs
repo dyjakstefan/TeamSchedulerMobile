@@ -51,7 +51,6 @@ namespace TSM.ViewModels.TeamVM
             {
                 team.Name = Name;
                 await apiService.Update(team, "teams");
-                MessagingCenter.Send(this, "EditTeam");
                 await Navigation.PopAsync();
             }
             catch (Exception e)

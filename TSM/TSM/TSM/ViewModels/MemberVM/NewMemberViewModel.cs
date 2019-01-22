@@ -51,7 +51,6 @@ namespace TSM.ViewModels.MemberVM
             {
                 var member = new MemberDto { Email = this.Email, TeamId = teamId };
                 await apiService.Add(member, "members");
-                MessagingCenter.Send(this, "AddMember");
                 await Navigation.PopAsync();
             }
             catch (Exception e)

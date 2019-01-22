@@ -31,16 +31,10 @@ namespace TSM.ViewModels.TeamVM
             EditTeamCommand = new Command(async () => await EditTeam(), () => !IsBusy);
             DeleteTeamCommand = new Command<Team>(async (team) => await DeleteTeam(team));
             Navigation = navigation;
-
-            MessagingCenter.Subscribe<NewTeamViewModel>(this, "AddTeam", async (obj) => await LoadTeams());
-            MessagingCenter.Subscribe<EditTeamViewModel>(this, "EditTeam", async (obj) => await LoadTeams());
         }
 
         private async Task LoadTeams()
         {
-            if (isBusy)
-                return;
-
             IsBusy = true;
 
             try
@@ -82,7 +76,7 @@ namespace TSM.ViewModels.TeamVM
 
             try
             {
-                await apiService.Delete(team.Id, "teams");
+                await apiService.Delete(new { Id = team.Id }, "teams");
                 Teams.Remove(team);
             }
             catch(Exception e)

@@ -47,7 +47,6 @@ namespace TSM.ViewModels.TeamVM
             {
                 var team = new Team {Name = this.Name};
                 await apiService.Add(team, "teams");
-                MessagingCenter.Send(this, "AddTeam");
                 await Navigation.PopAsync();
             }
             catch (Exception e)

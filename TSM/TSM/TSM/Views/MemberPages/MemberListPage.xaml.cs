@@ -30,18 +30,14 @@ namespace TSM.Views.MemberPages
 	            return;
 	        }
 
-	        await Navigation.PushAsync(new LoginPage());
+	        await Navigation.PushAsync(new MemberDetailsPage(member));
 	        MemberListView.SelectedItem = null;
 	    }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (viewModel.Members.Count == 0)
-            {
-                viewModel.LoadMembersCommand.Execute(null);
-            }
+            viewModel.LoadMembersCommand.Execute(null);
         }
     }
 }

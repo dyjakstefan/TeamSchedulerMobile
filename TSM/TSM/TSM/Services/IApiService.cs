@@ -12,6 +12,6 @@ namespace TSM.Services
         Task<List<T>> GetAll<T>(string url);
         Task Add<T>(T payload, string url);
         Task Update<T>(T payload, string url);
-        Task Delete(int id, string url);
+        Task Delete<T>(T payload, string url);
     }
 }
