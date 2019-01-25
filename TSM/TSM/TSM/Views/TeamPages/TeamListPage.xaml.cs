@@ -7,6 +7,7 @@ using TSM.Models;
 using TSM.ViewModels;
 using TSM.ViewModels.TeamVM;
 using TSM.Views.MemberPages;
+using TSM.Views.SchedulePages;
 using TSM.Views.TeamPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -33,7 +34,7 @@ namespace TSM.Views
 	            return;
             }
 
-	        await Navigation.PushAsync(new MemberListPage(team));
+	        await Navigation.PushAsync(new ScheduleListPage(team));
 	        TeamListView.SelectedItem = null;
 	    }
 

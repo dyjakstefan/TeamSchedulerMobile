@@ -14,11 +14,11 @@ namespace TSM
         public App()
         {
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.0.102:45455/api/";
+            Settings.BaseAddress = "http://192.168.1.65:45455/api/";
 
             if (string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate < DateTime.Now)
             {
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new NavigationPage(new TeamListPage());
             }
             else
             {

@@ -63,12 +63,12 @@ namespace TSM.ViewModels.AuthVM
                 var jwt = await authService.Login(email, password);
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
-                Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
+                Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
                 await Navigation.PopAsync();
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid Login, try again", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
             finally
             {

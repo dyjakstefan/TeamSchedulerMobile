@@ -35,6 +35,13 @@ namespace TSM.Services
             return JsonConvert.DeserializeObject<List<T>>(await response.Content.ReadAsStringAsync());
         }
 
+        public async Task<List<T>> GetAll<T>(int id, string url)
+        {
+            var response = await client.GetAsync($"{url}/{id}");
+            response.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<List<T>>(await response.Content.ReadAsStringAsync());
+        }
+
         public async Task Add<T>(T payload, string url)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url)

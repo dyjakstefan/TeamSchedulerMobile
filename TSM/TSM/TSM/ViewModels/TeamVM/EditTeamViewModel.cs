@@ -55,7 +55,7 @@ namespace TSM.ViewModels.TeamVM
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Team with that name already exists.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
             finally
             {

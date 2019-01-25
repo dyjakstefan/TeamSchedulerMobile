@@ -83,18 +83,18 @@ namespace TSM.ViewModels.AuthVM
                 });
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
-                Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
+                Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
                 var rootPage = Navigation.NavigationStack.FirstOrDefault();
                 if (rootPage != null)
                 {
                     App.IsUserLoggedIn = true;
-                    Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.First());
+                    Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.First());
                     await Navigation.PopToRootAsync();
                 }
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid credentials.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
             finally
             {

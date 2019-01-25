@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TSM.Dto;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
 
-namespace TSM.ViewModels.TeamVM
+namespace TSM.ViewModels.ScheduleVM
 {
-    public class NewTeamViewModel : BaseViewModel
+    public class NewScheduleViewModel : BaseViewModel
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
         private string name;
+
+        private int teamId;
 
         public string Name
         {
@@ -26,27 +29,28 @@ namespace TSM.ViewModels.TeamVM
             set
             {
                 SetProperty(ref isBusy, value);
-                AddTeamCommand.ChangeCanExecute();
+                AddScheduleCommand.ChangeCanExecute();
             }
         }
 
         public INavigation Navigation { get; set; }
 
-        public Command AddTeamCommand { get; protected set; }
+        public Command AddScheduleCommand { get; protected set; }
 
-        public NewTeamViewModel(INavigation navigation)
+        public NewScheduleViewModel(INavigation navigation, int teamId)
         {
-            AddTeamCommand = new Command(async () => await AddTeam(), () => !IsBusy);
+            AddScheduleCommand = new Command(async () => await AddSchedule(), () => !IsBusy);
             Navigation = navigation;
+            this.teamId = teamId;
         }
 
-        protected async Task AddTeam()
+        protected async Task AddSchedule()
         {
             IsBusy = true;
             try
             {
-                var team = new Team {Name = this.Name};
-                await apiService.Add(team, "teams");
+                var schedule = new Schedule { Name = this.Name, TeamId = teamId };
+                await apiService.Add(schedule, "schedules");
                 await Navigation.PopAsync();
             }
             catch (Exception e)
