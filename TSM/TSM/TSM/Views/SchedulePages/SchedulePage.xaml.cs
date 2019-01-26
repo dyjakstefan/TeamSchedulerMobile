@@ -15,6 +15,7 @@ namespace TSM.Views.SchedulePages
         public SchedulePage (Schedule schedule)
         {
             InitializeComponent();
+            Title = schedule.Name;
             Children.Add(new SummaryPage(schedule));
             Children.Add(new SingleDayPage(schedule, DayOfWeek.Monday));
         }

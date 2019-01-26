@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.SchedulePages.NewSchedulePage"
-             Title="New Schedule">
+             Title="Dodaj grafik">
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="Name" FontSize="Medium" />
+            <Label Text="Nazwa" FontSize="Medium" />
             <Entry x:Name="NameEntry" Text="{Binding Name}" FontSize="Small" />
-            <Button Command="{Binding AddScheduleCommand}" Text="Add" TextColor="White"  
+            <Button Command="{Binding AddScheduleCommand}" Text="Zapisz" TextColor="White"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
                     BackgroundColor="#3897F0" HeightRequest="50"/>
         </StackLayout>

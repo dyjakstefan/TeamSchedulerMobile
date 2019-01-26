@@ -15,7 +15,7 @@ namespace TSM.ViewModels.MemberVM
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
-        private int teamId;
+        public Team Team { get; set; }
 
         public ObservableCollection<Member> Members { get; set; }
 
@@ -27,8 +27,8 @@ namespace TSM.ViewModels.MemberVM
 
         public MemberListViewModel(INavigation navigation, Team team)
         {
-            teamId = team.Id;
-            Members = new ObservableCollection<Member>(team.Members);
+            Team = team;
+            Members = new ObservableCollection<Member>(Team.Members);
             LoadMembersCommand = new Command(async () => await LoadMembers());
             OnAddMemberCommand = new Command(async () => await OnAddMember(), () => !IsBusy);
             Navigation = navigation;
@@ -41,7 +41,7 @@ namespace TSM.ViewModels.MemberVM
             try
             {
                 Members.Clear();
-                var team = await apiService.Get<Team>(teamId, "teams");
+                var team = await apiService.Get<Team>(Team.Id, "teams");
                 foreach (var member in team.Members)
                 {
                     Members.Add(member);
@@ -59,7 +59,7 @@ namespace TSM.ViewModels.MemberVM
 
         private async Task OnAddMember()
         {
-            await Navigation.PushAsync(new NewMemberPage(teamId));
+            await Navigation.PushAsync(new NewMemberPage(Team.Id));
         }
     }
 }

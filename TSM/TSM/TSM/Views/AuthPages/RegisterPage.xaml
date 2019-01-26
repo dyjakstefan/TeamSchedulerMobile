@@ -2,15 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.RegisterPage"
-             Title="Signup">
+             Title="Rejestracja">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
             <StackLayout Orientation="Vertical" Spacing="10">
-                <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="First Name"   
+                <Entry x:Name="FirstName" Text="{Binding FirstName}" Placeholder="Imię"   
                        PlaceholderColor="Black" HeightRequest="40"   
                        Keyboard="Email"  
                        TextColor="Black"/>
-                <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder="Last Name"   
+                <Entry x:Name="LastName" Text="{Binding LastName}" Placeholder="Nazwisko"   
                        PlaceholderColor="Black" HeightRequest="40"   
                        Keyboard="Email"  
                        TextColor="Black"/>
@@ -18,12 +18,12 @@
                        PlaceholderColor="Black" HeightRequest="40"   
                        Keyboard="Email"  
                        TextColor="Black"/>
-                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Hasło"   
                        PlaceholderColor="Black" HeightRequest="40"   
                        IsPassword="True"  
                        TextColor="Black"/>
             </StackLayout>
-            <Button Command="{Binding RegisterCommand}" Text="Sign Up" TextColor="White"  
+            <Button Command="{Binding RegisterCommand}" Text="Zarejestruj się" TextColor="White"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"  
                     BackgroundColor="#3897F0" HeightRequest="50"/>
         </StackLayout>

@@ -13,6 +13,7 @@ namespace TSM.Views
         public MainPage(Team team)
         {
             InitializeComponent();
+            Title = team.Name;
             Children.Add(new ScheduleListPage(team));
             Children.Add(new MemberListPage(team));
         }

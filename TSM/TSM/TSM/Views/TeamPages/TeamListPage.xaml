@@ -21,8 +21,8 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Text="Edit" Clicked="OnEditTeamClicked" CommandParameter="{Binding .}" x:Name="EditTeam"/>
-                                <MenuItem Text="Delete" Clicked="OnDeleteTeamClicked" CommandParameter="{Binding .}" x:Name="DeleteTeam"/>
+                                <MenuItem Text="Edytuj" Clicked="OnEditTeamClicked" CommandParameter="{Binding .}" x:Name="EditTeam"/>
+                                <MenuItem Text="Usuń" Clicked="OnDeleteTeamClicked" CommandParameter="{Binding .}" x:Name="DeleteTeam"/>
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>

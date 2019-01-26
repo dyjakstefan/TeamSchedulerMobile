@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.LoginPage"
-             Title="Login">
+             Title="TSM">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
             <StackLayout Orientation="Vertical" Spacing="10">
@@ -10,15 +10,15 @@
                        PlaceholderColor="Black" HeightRequest="40"   
                        Keyboard="Email"  
                        TextColor="Black"/>
-                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Hasło"   
                        PlaceholderColor="Black" HeightRequest="40"   
                        IsPassword="True"  
                        TextColor="Black"/>
             </StackLayout>
-            <Button Command="{Binding SubmitCommand}" Text="Log In" TextColor="White"  
+            <Button Command="{Binding SubmitCommand}" Text="Zaloguj się" TextColor="White"  
                 FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"  
                 BackgroundColor="#3897F0" HeightRequest="50"/>
-            <Label Text="Sign Up" HorizontalOptions="Center" FontSize="Small">
+            <Label Text="Rejestracja" HorizontalOptions="Center" FontSize="Small">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped ="SignUpClicked"/>
                 </Label.GestureRecognizers>

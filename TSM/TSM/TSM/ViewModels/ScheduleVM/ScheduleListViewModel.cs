@@ -16,7 +16,7 @@ namespace TSM.ViewModels.ScheduleVM
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
-        private int teamId;
+        public Team Team { get; set; }
 
         public ObservableCollection<Schedule> Schedules { get; set; }
 
@@ -30,7 +30,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         public ScheduleListViewModel(INavigation navigation, Team team)
         {
-            teamId = team.Id;
+            Team = team;
             Schedules = new ObservableCollection<Schedule>();
             LoadSchedulesCommand = new Command(async () => await LoadSchedules());
             DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule));
@@ -45,7 +45,7 @@ namespace TSM.ViewModels.ScheduleVM
             try
             {
                 Schedules.Clear();
-                var schedules = await apiService.GetAll<Schedule>(teamId, "schedules/all");
+                var schedules = await apiService.GetAll<Schedule>(Team.Id, "schedules/all");
                 foreach (var schedule in schedules)
                 {
                     Schedules.Add(schedule);
@@ -88,7 +88,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async Task OnAddSchedule()
         {
-            await Navigation.PushAsync(new NewSchedulePage(teamId));
+            await Navigation.PushAsync(new NewSchedulePage(Team.Id));
         }
     }
 }

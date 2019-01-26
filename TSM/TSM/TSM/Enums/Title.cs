@@ -7,8 +7,6 @@ namespace TSM.Enums
     public enum Title
     {
         Manager,
-        Waiter,
-        Barman,
-        Cook
+        Employee
     }
 }

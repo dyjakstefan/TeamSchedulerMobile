@@ -2,15 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.MemberPages.MemberDetailsPage"
-             Title="Member">
+             Title="Członek">
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="Name" FontSize="Medium" />
-            <Entry x:Name="HoursEntry" Text="{Binding Hours}" FontSize="Small" />
-            <Button Command="{Binding EditMemberCommand}" Text="Save" TextColor="White"  
+            <Label Text="Godziny" FontSize="Medium" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Entry x:Name="HoursEntry" Text="{Binding Hours}" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                <Stepper Maximum="1000" Minimum="0" Increment="1" HorizontalOptions="End" Value="{Binding Hours}"/>
+            </StackLayout>
+            
+            <Label Text="Picker" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Picker x:Name="TitlePicker"
+                    ItemsSource="{Binding Titles}" SelectedIndexChanged="OnPickerSelectedIndexChanged" />
+
+            <Button Command="{Binding EditMemberCommand}" Text="Zapisz" TextColor="White"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
                     BackgroundColor="#3897F0" HeightRequest="50"/>
-            <Button Command="{Binding DeleteMemberCommand}" Text="Delete Member" TextColor="White"  
+            <Button Command="{Binding DeleteMemberCommand}" Text="Usuń członka" TextColor="White"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
                     BackgroundColor="#3897F0" HeightRequest="50"/>
         </StackLayout>

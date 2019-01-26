@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.MemberPages.MemberListPage"             
-             Title="Members">
+             Title="Członkowie">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding OnAddMemberCommand}"/>
     </ContentPage.ToolbarItems>
@@ -20,8 +20,9 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
-                                <Label Text="{Binding UserId}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <Label Text="aaaaa"/>
+                                <Label Text="{Binding User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                                <Label Text="{Binding Title}" FontSize="Small" LineBreakMode="NoWrap"/>
+                                <Label Text="{Binding User.Email}" FontSize="Small" LineBreakMode="NoWrap"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

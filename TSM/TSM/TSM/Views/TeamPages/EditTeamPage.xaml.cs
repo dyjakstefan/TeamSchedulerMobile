@@ -18,6 +18,7 @@ namespace TSM.Views.TeamPages
         public EditTeamPage(Team team)
         {
             InitializeComponent();
+            Title = $"Edytuj {team.Name}";
             viewModel = new EditTeamViewModel(Navigation, team);
             BindingContext = viewModel;
             NameEntry.Completed += (sender, e) => { viewModel.EditTeamCommand.Execute(null); };

@@ -18,9 +18,15 @@ namespace TSM.Views.MemberPages
 		public MemberDetailsPage (Member member)
 		{
 		    InitializeComponent();
+		    Title = member.User.FullName;
 		    viewModel = new MemberDetailsViewModel(Navigation, member);
 		    BindingContext = viewModel;
 		    HoursEntry.Completed += (sender, e) => { viewModel.EditMemberCommand.Execute(null); };
         }
-	}
+
+	    protected void OnPickerSelectedIndexChanged(object sender, ValueChangedEventArgs e)
+	    {
+	        
+	    }
+    }
 }
