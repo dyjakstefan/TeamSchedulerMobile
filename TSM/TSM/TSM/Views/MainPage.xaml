@@ -4,7 +4,4 @@
             xmlns:views="clr-namespace:TSM.Views"
             x:Class="TSM.Views.MainPage"
             Title ="TSM">
-    <TabbedPage.Children>
-        <views:TeamListPage/>
-    </TabbedPage.Children>
 </TabbedPage>

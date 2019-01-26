@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SQLite;
 using TSM.Models;
 using Xamarin.Forms;
+using Task = System.Threading.Tasks.Task;
 
 namespace TSM.Services
 {

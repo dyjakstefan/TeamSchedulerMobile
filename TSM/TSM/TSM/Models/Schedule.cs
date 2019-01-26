@@ -19,9 +19,5 @@ namespace TSM.Models
         public DateTime EndAt { get; set; }
 
         public int TeamId { get; set; }
-
-        public Team Team { get; set; }
-
-        public List<Day> Days { get; set; }
     }
 }

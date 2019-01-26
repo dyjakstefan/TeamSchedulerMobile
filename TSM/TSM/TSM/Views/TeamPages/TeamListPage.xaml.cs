@@ -34,7 +34,7 @@ namespace TSM.Views
 	            return;
             }
 
-	        await Navigation.PushAsync(new ScheduleListPage(team));
+	        await Navigation.PushAsync(new MainPage(team));
 	        TeamListView.SelectedItem = null;
 	    }
 

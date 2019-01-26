@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TSM.Dto;
-using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
-using Task = System.Threading.Tasks.Task;
 
-namespace TSM.ViewModels.MemberVM
+namespace TSM.ViewModels.ScheduleVM
 {
-    public class NewMemberViewModel : BaseViewModel
+    public class NewTaskViewModel : BaseViewModel
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
         private string email;
 
-        private int teamId;
+        private int scheduleId;
 
         public string Email
         {
@@ -30,29 +27,29 @@ namespace TSM.ViewModels.MemberVM
             set
             {
                 SetProperty(ref isBusy, value);
-                AddMemberCommand.ChangeCanExecute();
+                AddTaskCommand.ChangeCanExecute();
             }
         }
 
         public INavigation Navigation { get; set; }
 
-        public Command AddMemberCommand { get; protected set; }
+        public Command AddTaskCommand { get; protected set; }
 
-        public NewMemberViewModel(INavigation navigation, int teamId)
+        public NewTaskViewModel(INavigation navigation, int scheduleId)
         {
-            AddMemberCommand = new Command(async () => await AddMember(), () => !IsBusy);
+            AddTaskCommand = new Command(async () => await AddTask(), () => !IsBusy);
             Navigation = navigation;
-            this.teamId = teamId;
+            this.scheduleId = scheduleId;
         }
 
-        protected async Task AddMember()
+        protected async Task AddTask()
         {
             IsBusy = true;
             try
             {
-                var member = new MemberDto { Email = this.Email, TeamId = teamId };
-                await apiService.Add(member, "members");
-                await Navigation.PopAsync();
+                //var member = new MemberDto { Email = this.Email, TeamId = teamId };
+                //await apiService.Add(member, "members");
+                //await Navigation.PopAsync();
             }
             catch (Exception e)
             {

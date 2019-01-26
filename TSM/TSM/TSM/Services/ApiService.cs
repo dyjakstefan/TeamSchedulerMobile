@@ -21,6 +21,13 @@ namespace TSM.Services
             client.BaseAddress = new Uri(Settings.BaseAddress);
         }
 
+        public async Task<T> Get<T>(string url)
+        {
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+        }
+
         public async Task<T> Get<T>(int id, string url)
         {
             var response = await client.GetAsync($"{url}/{id}");

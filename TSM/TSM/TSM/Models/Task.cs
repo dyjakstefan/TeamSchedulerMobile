@@ -4,16 +4,16 @@ using System.Text;
 
 namespace TSM.Models
 {
-    public class UnitOfWork : Entity
+    public class Task : Entity
     {
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
 
-        public bool IsAccepted { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
 
-        public Day Day { get; set; }
+        public int ScheduleId { get; set; }
 
-        public Member Member { get; set; }
+        public int MemberId { get; set; }
     }
 }

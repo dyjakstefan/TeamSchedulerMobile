@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TSM.Models;
 using TSM.Services;
-using TSM.Views.MemberPages;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
 
-namespace TSM.ViewModels.MemberVM
+namespace TSM.ViewModels.ScheduleVM
 {
-    public class MemberListViewModel : BaseViewModel
+    public class SummaryViewModel : BaseViewModel
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
@@ -21,16 +20,13 @@ namespace TSM.ViewModels.MemberVM
 
         public Command LoadMembersCommand { get; set; }
 
-        public Command OnAddMemberCommand { get; set; }
-
         public INavigation Navigation { get; set; }
 
-        public MemberListViewModel(INavigation navigation, Team team)
+        public SummaryViewModel(INavigation navigation, int teamId)
         {
-            teamId = team.Id;
-            Members = new ObservableCollection<Member>(team.Members);
+            this.teamId = teamId;
+            Members = new ObservableCollection<Member>();
             LoadMembersCommand = new Command(async () => await LoadMembers());
-            OnAddMemberCommand = new Command(async () => await OnAddMember(), () => !IsBusy);
             Navigation = navigation;
         }
 
@@ -55,11 +51,6 @@ namespace TSM.ViewModels.MemberVM
             {
                 IsBusy = false;
             }
-        }
-
-        private async Task OnAddMember()
-        {
-            await Navigation.PushAsync(new NewMemberPage(teamId));
         }
     }
 }

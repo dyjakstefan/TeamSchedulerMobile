@@ -12,6 +12,6 @@ namespace TSM.Models
 
         public Schedule Schedule { get; set; }
 
-        public List<UnitOfWork> UnitsOfWorks { get; set; }
+        public List<Task> UnitsOfWorks { get; set; }
     }
 }

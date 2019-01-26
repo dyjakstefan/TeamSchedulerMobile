@@ -26,14 +26,14 @@ namespace TSM.Views.SchedulePages
 
         private async void OnScheduleSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            //var member = args.SelectedItem as Member;
-            //if (member == null)
-            //{
-            //    return;
-            //}
+            var schedule = args.SelectedItem as Schedule;
+            if (schedule == null)
+            {
+                return;
+            }
 
-            //await Navigation.PushAsync(new MemberDetailsPage(member));
-            //ScheduleListView.SelectedItem = null;
+            await Navigation.PushAsync(new SchedulePage(schedule));
+            ScheduleListView.SelectedItem = null;
         }
 
         protected override void OnAppearing()

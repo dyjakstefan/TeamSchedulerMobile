@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using TSM.Models;
 using TSM.Views;
+using Task = System.Threading.Tasks.Task;
 
 namespace TSM.ViewModels
 {

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TSM.Views.SchedulePages.SingleDayPage"
+             Title="Single Day">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding OnAddTaskCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="TasksListView" 
+                      HasUnevenRows="True" 
+                      ItemsSource="{Binding Tasks}" 
+                      ItemSelected="OnTaskSelected" 
+                      RefreshCommand="{Binding LoadTasksCommand}"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
+                                <Label Text="{Binding Start}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                                <Label Text="aaaaa"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

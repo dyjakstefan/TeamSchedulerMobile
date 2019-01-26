@@ -8,6 +8,7 @@ using TSM.Services;
 using TSM.Views;
 using TSM.Views.SchedulePages;
 using Xamarin.Forms;
+using Task = System.Threading.Tasks.Task;
 
 namespace TSM.ViewModels.ScheduleVM
 {
