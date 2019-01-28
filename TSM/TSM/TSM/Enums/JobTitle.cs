@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TSM.Enums
 {
-    public enum Title
+    public enum JobTitle
     {
         Manager,
         Employee

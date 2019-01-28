@@ -9,7 +9,7 @@ namespace TSM.Models
     {
         public int Hours { get; set; }
 
-        public Title Title { get; set; }
+        public JobTitle Title { get; set; }
 
         public bool IsPartTime { get; set; }
 

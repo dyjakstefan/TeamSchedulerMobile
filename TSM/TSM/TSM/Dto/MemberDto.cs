@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TSM.Enums;
 
 namespace TSM.Dto
 {
@@ -13,6 +14,8 @@ namespace TSM.Dto
         public string Email { get; set; }
 
         public int Hours { get; set; }
+
+        public JobTitle Title { get; set; }
 
         public bool IsPartTime { get; set; }
     }

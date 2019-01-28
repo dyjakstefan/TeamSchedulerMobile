@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TSM.Dto;
+using TSM.Enums;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
@@ -17,6 +18,22 @@ namespace TSM.ViewModels.MemberVM
         private string email;
 
         private int teamId;
+
+        private int hours;
+
+        private JobTitle jobTitle;
+
+        public int Hours
+        {
+            get { return hours; }
+            set { SetProperty(ref hours, value); }
+        }
+
+        public JobTitle JobTitle
+        {
+            get { return jobTitle; }
+            set { SetProperty(ref jobTitle, value); }
+        }
 
         public string Email
         {
@@ -34,6 +51,8 @@ namespace TSM.ViewModels.MemberVM
             }
         }
 
+        public List<string> Titles { get; set; }
+
         public INavigation Navigation { get; set; }
 
         public Command AddMemberCommand { get; protected set; }
@@ -43,6 +62,9 @@ namespace TSM.ViewModels.MemberVM
             AddMemberCommand = new Command(async () => await AddMember(), () => !IsBusy);
             Navigation = navigation;
             this.teamId = teamId;
+            Titles = new List<string>();
+            Titles.Add(JobTitle.Manager.ToString());
+            Titles.Add(JobTitle.Employee.ToString());
         }
 
         protected async Task AddMember()
@@ -50,7 +72,7 @@ namespace TSM.ViewModels.MemberVM
             IsBusy = true;
             try
             {
-                var member = new MemberDto { Email = this.Email, TeamId = teamId };
+                var member = new MemberDto { Email = email, TeamId = teamId, Hours = hours, Title = jobTitle};
                 await apiService.Add(member, "members");
                 await Navigation.PopAsync();
             }

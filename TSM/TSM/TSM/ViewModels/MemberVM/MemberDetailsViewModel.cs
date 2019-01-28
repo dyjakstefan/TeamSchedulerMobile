@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TSM.Dto;
+using TSM.Enums;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
@@ -16,12 +17,20 @@ namespace TSM.ViewModels.MemberVM
 
         private int hours;
 
+        private JobTitle jobTitle;
+
         private Member member;
 
         public int Hours
         {
             get { return hours; }
             set { SetProperty(ref hours, value); }
+        }
+
+        public JobTitle JobTitle
+        {
+            get { return jobTitle; }
+            set { SetProperty(ref jobTitle, value); }
         }
 
         public new bool IsBusy
@@ -34,6 +43,8 @@ namespace TSM.ViewModels.MemberVM
                 DeleteMemberCommand.ChangeCanExecute();
             }
         }
+
+        public List<string> Titles { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -48,6 +59,10 @@ namespace TSM.ViewModels.MemberVM
             Navigation = navigation;
             this.member = member;
             Hours = member.Hours;
+            JobTitle = member.Title;
+            Titles = new List<string>();
+            Titles.Add(JobTitle.Manager.ToString());
+            Titles.Add(JobTitle.Employee.ToString());
         }
 
         protected async Task EditMember()
@@ -56,7 +71,8 @@ namespace TSM.ViewModels.MemberVM
             try
             {
                 member.Hours = Hours;
-                var memberDto = new MemberDto { Hours = hours, MemberId = member.Id, TeamId = member.TeamId };
+                member.Title = JobTitle;
+                var memberDto = new MemberDto { Hours = member.Hours, MemberId = member.Id, TeamId = member.TeamId, Title = member.Title };
                 await apiService.Update(memberDto, "members");
                 await Navigation.PopAsync();
             }

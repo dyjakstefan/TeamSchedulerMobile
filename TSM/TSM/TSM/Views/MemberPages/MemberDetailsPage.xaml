@@ -4,14 +4,14 @@
              x:Class="TSM.Views.MemberPages.MemberDetailsPage"
              Title="Członek">
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Godziny" FontSize="Medium" />
+        <StackLayout Padding="15">
+            <Label Text="Godziny" FontAttributes="Bold" />
             <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Entry x:Name="HoursEntry" Text="{Binding Hours}" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                <Entry x:Name="HoursEntry" Text="{Binding Hours}" FontSize="Small" HorizontalOptions="FillAndExpand" />
                 <Stepper Maximum="1000" Minimum="0" Increment="1" HorizontalOptions="End" Value="{Binding Hours}"/>
             </StackLayout>
             
-            <Label Text="Picker" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label Text="Stanowisko" FontAttributes="Bold"/>
             <Picker x:Name="TitlePicker"
                     ItemsSource="{Binding Titles}" SelectedIndexChanged="OnPickerSelectedIndexChanged" />
 

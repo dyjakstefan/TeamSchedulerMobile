@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSM.Enums;
 using TSM.Models;
 using TSM.ViewModels.MemberVM;
 using Xamarin.Forms;
@@ -21,12 +22,16 @@ namespace TSM.Views.MemberPages
 		    Title = member.User.FullName;
 		    viewModel = new MemberDetailsViewModel(Navigation, member);
 		    BindingContext = viewModel;
-		    HoursEntry.Completed += (sender, e) => { viewModel.EditMemberCommand.Execute(null); };
-        }
+		    TitlePicker.SelectedIndex = (int)viewModel.JobTitle;
+		}
 
-	    protected void OnPickerSelectedIndexChanged(object sender, ValueChangedEventArgs e)
+	    protected void OnPickerSelectedIndexChanged(object sender, EventArgs e)
 	    {
-	        
+	        var picker = sender as Picker;
+	        if (picker.SelectedIndex != -1)
+	        {
+	            viewModel.JobTitle = (JobTitle)picker.SelectedIndex;
+	        }
 	    }
     }
 }
