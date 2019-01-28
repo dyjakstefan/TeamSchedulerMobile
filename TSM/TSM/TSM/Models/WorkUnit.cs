@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TSM.Models
 {
-    public class Task : Entity
+    public class WorkUnit : Entity
     {
         public DateTime Start { get; set; }
 

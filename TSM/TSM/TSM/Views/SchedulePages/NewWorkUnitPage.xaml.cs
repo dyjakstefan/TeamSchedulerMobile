@@ -11,17 +11,17 @@ using Xamarin.Forms.Xaml;
 namespace TSM.Views.SchedulePages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewTaskPage : ContentPage
+	public partial class NewWorkUnitPage : ContentPage
 	{
-	    private NewTaskViewModel viewModel;
+	    private NewWorkUnitViewModel viewModel;
 
-		public NewTaskPage (int scheduleId, List<Member> members)
-		{
-			InitializeComponent ();
-		    InitializeComponent();
-		    viewModel = new NewTaskViewModel(Navigation, scheduleId, members);
-		    BindingContext = viewModel;
-        }
+	    public NewWorkUnitPage(int scheduleId, List<Member> members)
+	    {
+	        InitializeComponent();
+	        InitializeComponent();
+	        viewModel = new NewWorkUnitViewModel(Navigation, scheduleId, members);
+	        BindingContext = viewModel;
+	    }
 
 	    protected void OnPickerSelectedIndexChanged(object sender, EventArgs e)
 	    {

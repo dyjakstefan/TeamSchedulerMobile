@@ -19,6 +19,6 @@ namespace TSM.Models
 
         public User User { get; set; }
 
-        public List<Task> Tasks { get; set; }
+        public List<WorkUnit> WorkUnits { get; set; }
     }
 }

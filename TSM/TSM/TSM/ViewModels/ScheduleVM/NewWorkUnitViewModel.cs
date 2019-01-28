@@ -4,11 +4,11 @@ using System.Text;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
-using Task = System.Threading.Tasks.Task;
+using System.Threading.Tasks;
 
 namespace TSM.ViewModels.ScheduleVM
 {
-    public class NewTaskViewModel : BaseViewModel
+    public class NewWorkUnitViewModel : BaseViewModel
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
@@ -16,7 +16,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         private Member selectedMember;
 
-        private TSM.Models.Task task;
+        private WorkUnit workUnit;
 
         public Member SelectedMember
         {
@@ -24,10 +24,10 @@ namespace TSM.ViewModels.ScheduleVM
             set { SetProperty(ref selectedMember, value); }
         }
 
-        public TSM.Models.Task Task
+        public WorkUnit WorkUnit
         {
-            get { return task; }
-            set { SetProperty(ref task, value); }
+            get { return workUnit; }
+            set { SetProperty(ref workUnit, value); }
         }
 
         public new bool IsBusy
@@ -36,7 +36,7 @@ namespace TSM.ViewModels.ScheduleVM
             set
             {
                 SetProperty(ref isBusy, value);
-                AddTaskCommand.ChangeCanExecute();
+                AddWorkUnitCommand.ChangeCanExecute();
             }
         }
 
@@ -44,17 +44,17 @@ namespace TSM.ViewModels.ScheduleVM
 
         public INavigation Navigation { get; set; }
 
-        public Command AddTaskCommand { get; protected set; }
+        public Command AddWorkUnitCommand { get; protected set; }
 
-        public NewTaskViewModel(INavigation navigation, int scheduleId, List<Member> members)
+        public NewWorkUnitViewModel(INavigation navigation, int scheduleId, List<Member> members)
         {
             Members = members;
-            AddTaskCommand = new Command(async () => await AddTask(), () => !IsBusy);
+            AddWorkUnitCommand = new Command(async () => await AddWorkUnit(), () => !IsBusy);
             Navigation = navigation;
             this.scheduleId = scheduleId;
         }
 
-        protected async Task AddTask()
+        protected async Task AddWorkUnit()
         {
             IsBusy = true;
             try

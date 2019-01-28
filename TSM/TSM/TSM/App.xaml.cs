@@ -16,7 +16,7 @@ namespace TSM
             InitializeComponent();
             Settings.BaseAddress = "http://192.168.1.65:45455/api/";
 
-            if (!string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate < DateTime.Now)
+            if (!string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate > DateTime.Now)
             {
                 MainPage = new NavigationPage(new TeamListPage());
             }

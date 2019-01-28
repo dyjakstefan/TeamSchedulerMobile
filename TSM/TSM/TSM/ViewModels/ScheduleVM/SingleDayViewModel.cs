@@ -8,7 +8,6 @@ using TSM.Models;
 using TSM.Services;
 using TSM.Views.SchedulePages;
 using Xamarin.Forms;
-using Task = TSM.Models.Task;
 
 namespace TSM.ViewModels.ScheduleVM
 {
@@ -22,11 +21,11 @@ namespace TSM.ViewModels.ScheduleVM
 
         public List<Member> Members { get; set; }
 
-        public ObservableCollection<Task> Tasks { get; set; }
+        public ObservableCollection<WorkUnit> Tasks { get; set; }
 
-        public Command LoadTasksCommand { get; set; }
+        public Command LoadWorkUnitsCommand { get; set; }
 
-        public Command OnAddTaskCommand { get; set; }
+        public Command OnAddWorkUnitCommand { get; set; }
 
         public INavigation Navigation { get; set; }
 
@@ -35,20 +34,20 @@ namespace TSM.ViewModels.ScheduleVM
             Schedule = schedule;
             Members = members;
             this.day = day;
-            Tasks = new ObservableCollection<Task>();
-            LoadTasksCommand = new Command(async () => await LoadTasks());
-            OnAddTaskCommand = new Command(async () => await OnAddTask(), () => !IsBusy);
+            Tasks = new ObservableCollection<WorkUnit>();
+            LoadWorkUnitsCommand = new Command(async () => await LoadWorkUnits());
+            OnAddWorkUnitCommand = new Command(async () => await OnAddWorkUnit(), () => !IsBusy);
             Navigation = navigation;
         }
 
-        private async System.Threading.Tasks.Task LoadTasks()
+        private async Task LoadWorkUnits()
         {
             IsBusy = true;
 
             try
             {
                 Tasks.Clear();
-                var tasks = await apiService.GetAll<Task>($"tasks/{Schedule.Id}/{day}");
+                var tasks = await apiService.GetAll<WorkUnit>($"workunit/{Schedule.Id}/{day}");
                 foreach (var task in tasks)
                 {
                     task.Member = Members.SingleOrDefault(x => x.Id == task.MemberId);
@@ -65,9 +64,9 @@ namespace TSM.ViewModels.ScheduleVM
             }
         }
 
-        private async System.Threading.Tasks.Task OnAddTask()
+        private async Task OnAddWorkUnit()
         {
-            await Navigation.PushAsync(new NewTaskPage(Schedule.TeamId, Members));
+            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.TeamId, Members));
         }
     }
 }

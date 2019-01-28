@@ -26,10 +26,10 @@ namespace TSM.Views.SchedulePages
 	    protected override void OnAppearing()
 	    {
             base.OnAppearing();
-	        viewModel.LoadTasksCommand.Execute(null);
+	        viewModel.LoadWorkUnitsCommand.Execute(null);
 	    }
 
-	    private async void OnTaskSelected(object sender, SelectedItemChangedEventArgs args)
+	    private async void OnWorkUnitSelected(object sender, SelectedItemChangedEventArgs args)
 	    {
 	        //var team = args.SelectedItem as Team;
 	        //if (team == null)

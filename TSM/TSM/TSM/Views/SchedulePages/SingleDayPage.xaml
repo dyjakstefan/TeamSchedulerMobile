@@ -4,14 +4,14 @@
              x:Class="TSM.Views.SchedulePages.SingleDayPage"
              Title="Single Day">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding OnAddTaskCommand}"/>
+        <ToolbarItem Text="Add" Command="{Binding OnAddWorkUnitCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="TasksListView" 
                       HasUnevenRows="True" 
                       ItemsSource="{Binding Tasks}" 
-                      ItemSelected="OnTaskSelected" 
+                      ItemSelected="OnWorkUnitSelected" 
                       RefreshCommand="{Binding LoadTasksCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
