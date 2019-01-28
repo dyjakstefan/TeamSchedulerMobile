@@ -15,5 +15,7 @@ namespace TSM.Models
         public int ScheduleId { get; set; }
 
         public int MemberId { get; set; }
+
+        public Member Member { get; set; }
     }
 }

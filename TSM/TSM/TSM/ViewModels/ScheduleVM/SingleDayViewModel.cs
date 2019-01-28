@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TSM.Models;
@@ -15,9 +16,11 @@ namespace TSM.ViewModels.ScheduleVM
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
-        private int scheduleId;
-
         private DayOfWeek day;
+
+        public Schedule Schedule { get; set; }
+
+        public List<Member> Members { get; set; }
 
         public ObservableCollection<Task> Tasks { get; set; }
 
@@ -27,9 +30,10 @@ namespace TSM.ViewModels.ScheduleVM
 
         public INavigation Navigation { get; set; }
 
-        public SingleDayViewModel(INavigation navigation, Schedule schedule, DayOfWeek day)
+        public SingleDayViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
         {
-            scheduleId = schedule.Id;
+            Schedule = schedule;
+            Members = members;
             this.day = day;
             Tasks = new ObservableCollection<Task>();
             LoadTasksCommand = new Command(async () => await LoadTasks());
@@ -44,9 +48,10 @@ namespace TSM.ViewModels.ScheduleVM
             try
             {
                 Tasks.Clear();
-                var tasks = await apiService.GetAll<Task>($"tasks/{scheduleId}/{day}");
+                var tasks = await apiService.GetAll<Task>($"tasks/{Schedule.Id}/{day}");
                 foreach (var task in tasks)
                 {
+                    task.Member = Members.SingleOrDefault(x => x.Id == task.MemberId);
                     Tasks.Add(task);
                 }
             }
@@ -62,7 +67,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async System.Threading.Tasks.Task OnAddTask()
         {
-            await Navigation.PushAsync(new NewTaskPage(scheduleId));
+            await Navigation.PushAsync(new NewTaskPage(Schedule.TeamId, Members));
         }
     }
 }

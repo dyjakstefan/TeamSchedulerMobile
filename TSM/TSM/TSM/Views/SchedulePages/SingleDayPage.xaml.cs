@@ -15,11 +15,11 @@ namespace TSM.Views.SchedulePages
 	{
 	    private SingleDayViewModel viewModel;
 
-		public SingleDayPage (Schedule schedule, DayOfWeek day)
+		public SingleDayPage (Schedule schedule, List<Member> members, DayOfWeek day)
 		{
 			InitializeComponent ();
 		    Title = day.ToString();
-		    viewModel = new SingleDayViewModel(Navigation, schedule, day);
+		    viewModel = new SingleDayViewModel(Navigation, schedule, members, day);
 		    BindingContext = viewModel;
 		}
 

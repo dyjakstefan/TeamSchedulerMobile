@@ -32,7 +32,7 @@ namespace TSM.Views.SchedulePages
                 return;
             }
 
-            await Navigation.PushAsync(new SchedulePage(schedule));
+            await Navigation.PushAsync(new SchedulePage(schedule, viewModel.Team.Members));
             ScheduleListView.SelectedItem = null;
         }
 

@@ -20,8 +20,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
-                                <Label Text="{Binding Start}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <Label Text="aaaaa"/>
+                                <Label Text="{Binding Member.User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Start, StringFormat='{0:HH:mm}'}"/>
+                                    <Label Text="-"/>
+                                    <Label Text="{Binding End, StringFormat='{0:HH:mm}'}"/>
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

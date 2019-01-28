@@ -12,12 +12,12 @@ namespace TSM.Views.SchedulePages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SchedulePage : TabbedPage
     {
-        public SchedulePage (Schedule schedule)
+        public SchedulePage (Schedule schedule, List<Member> members)
         {
             InitializeComponent();
             Title = schedule.Name;
             Children.Add(new SummaryPage(schedule));
-            Children.Add(new SingleDayPage(schedule, DayOfWeek.Monday));
+            Children.Add(new SingleDayPage(schedule, members, DayOfWeek.Monday));
         }
     }
 }
