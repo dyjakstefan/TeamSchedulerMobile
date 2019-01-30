@@ -10,9 +10,9 @@
         <StackLayout>
             <ListView x:Name="TasksListView" 
                       HasUnevenRows="True" 
-                      ItemsSource="{Binding Tasks}" 
+                      ItemsSource="{Binding WorkUnits}" 
                       ItemSelected="OnWorkUnitSelected" 
-                      RefreshCommand="{Binding LoadTasksCommand}"
+                      RefreshCommand="{Binding LoadWorkUnitsCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement">
@@ -22,9 +22,9 @@
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Member.User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                    <Label Text="{Binding Start, StringFormat='{0:HH:mm}'}"/>
+                                    <Label Text="{Binding Start, StringFormat='{0:hh\\:mm}'}"/>
                                     <Label Text="-"/>
-                                    <Label Text="{Binding End, StringFormat='{0:HH:mm}'}"/>
+                                    <Label Text="{Binding End, StringFormat='{0:hh\\:mm}'}"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

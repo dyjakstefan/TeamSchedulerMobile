@@ -15,21 +15,12 @@ namespace TSM.Views.SchedulePages
 	{
 	    private NewWorkUnitViewModel viewModel;
 
-	    public NewWorkUnitPage(int scheduleId, List<Member> members)
+	    public NewWorkUnitPage(int scheduleId, List<Member> members, DayOfWeek day)
 	    {
 	        InitializeComponent();
 	        InitializeComponent();
-	        viewModel = new NewWorkUnitViewModel(Navigation, scheduleId, members);
+	        viewModel = new NewWorkUnitViewModel(Navigation, scheduleId, members, day);
 	        BindingContext = viewModel;
-	    }
-
-	    protected void OnPickerSelectedIndexChanged(object sender, EventArgs e)
-	    {
-	        //var picker = sender as Picker;
-	        //if (picker.SelectedIndex != -1)
-	        //{
-	        //    viewModel.JobTitle = (JobTitle)picker.SelectedIndex;
-	        //}
 	    }
     }
 }

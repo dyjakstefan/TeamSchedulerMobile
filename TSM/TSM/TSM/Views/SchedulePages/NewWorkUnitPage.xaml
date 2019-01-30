@@ -5,10 +5,18 @@
             Title="Nowe zadanie">
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="Członek" FontAttributes="Bold"/>
+            <Label Text="Członek" FontAttributes="Bold" />
             <Picker x:Name="MemberPicker"
                     ItemsSource="{Binding Members}" ItemDisplayBinding="{Binding User.FullName}" SelectedItem="{Binding SelectedMember, Mode=TwoWay}" />
-            <Button Command="{Binding AddWorkUnitCommand}" Text="Add" TextColor="White"  
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" BackgroundColor="SkyBlue"/>
+                <TimePicker x:Name="StartTimePicker" Time="{Binding SelectedStartTime}" Format="HH:mm" HorizontalOptions="End" BackgroundColor="LightGoldenrodYellow"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" BackgroundColor="SpringGreen"/>
+                <TimePicker x:Name="EndTimePicker" Time="{Binding SelectedEndTime}" Format="HH:mm" HorizontalOptions="End" BackgroundColor="IndianRed"/>
+            </StackLayout>
+            <Button Command="{Binding AddWorkUnitCommand}" Text="Dodaj" TextColor="White"  
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
                     BackgroundColor="#3897F0" HeightRequest="50"/>
         </StackLayout>

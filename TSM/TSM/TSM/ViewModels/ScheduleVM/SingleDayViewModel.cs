@@ -21,7 +21,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         public List<Member> Members { get; set; }
 
-        public ObservableCollection<WorkUnit> Tasks { get; set; }
+        public ObservableCollection<WorkUnit> WorkUnits { get; set; }
 
         public Command LoadWorkUnitsCommand { get; set; }
 
@@ -34,7 +34,7 @@ namespace TSM.ViewModels.ScheduleVM
             Schedule = schedule;
             Members = members;
             this.day = day;
-            Tasks = new ObservableCollection<WorkUnit>();
+            WorkUnits = new ObservableCollection<WorkUnit>();
             LoadWorkUnitsCommand = new Command(async () => await LoadWorkUnits());
             OnAddWorkUnitCommand = new Command(async () => await OnAddWorkUnit(), () => !IsBusy);
             Navigation = navigation;
@@ -46,12 +46,12 @@ namespace TSM.ViewModels.ScheduleVM
 
             try
             {
-                Tasks.Clear();
-                var tasks = await apiService.GetAll<WorkUnit>($"workunit/{Schedule.Id}/{day}");
-                foreach (var task in tasks)
+                WorkUnits.Clear();
+                var workUnits = await apiService.GetAll<WorkUnit>($"workunit/{Schedule.Id}/{day}");
+                foreach (var workUnit in workUnits)
                 {
-                    task.Member = Members.SingleOrDefault(x => x.Id == task.MemberId);
-                    Tasks.Add(task);
+                    workUnit.Member = Members.SingleOrDefault(x => x.Id == workUnit.MemberId);
+                    WorkUnits.Add(workUnit);
                 }
             }
             catch (Exception e)
@@ -66,7 +66,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async Task OnAddWorkUnit()
         {
-            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.TeamId, Members));
+            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.TeamId, Members, day));
         }
     }
 }

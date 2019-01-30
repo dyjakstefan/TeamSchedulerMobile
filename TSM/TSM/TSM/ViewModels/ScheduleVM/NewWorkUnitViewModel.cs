@@ -14,9 +14,15 @@ namespace TSM.ViewModels.ScheduleVM
 
         private int scheduleId;
 
+        private DayOfWeek day;
+
         private Member selectedMember;
 
         private WorkUnit workUnit;
+
+        private TimeSpan selectedStartTime;
+
+        private TimeSpan selectedEndTime;
 
         public Member SelectedMember
         {
@@ -28,6 +34,18 @@ namespace TSM.ViewModels.ScheduleVM
         {
             get { return workUnit; }
             set { SetProperty(ref workUnit, value); }
+        }
+
+        public TimeSpan SelectedStartTime
+        {
+            get { return selectedStartTime; }
+            set { SetProperty(ref selectedStartTime, value); }
+        }
+
+        public TimeSpan SelectedEndTime
+        {
+            get { return selectedEndTime; }
+            set { SetProperty(ref selectedEndTime, value); }
         }
 
         public new bool IsBusy
@@ -46,12 +64,13 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command AddWorkUnitCommand { get; protected set; }
 
-        public NewWorkUnitViewModel(INavigation navigation, int scheduleId, List<Member> members)
+        public NewWorkUnitViewModel(INavigation navigation, int scheduleId, List<Member> members, DayOfWeek day)
         {
             Members = members;
             AddWorkUnitCommand = new Command(async () => await AddWorkUnit(), () => !IsBusy);
             Navigation = navigation;
             this.scheduleId = scheduleId;
+            this.day = day;
         }
 
         protected async Task AddWorkUnit()
@@ -59,10 +78,16 @@ namespace TSM.ViewModels.ScheduleVM
             IsBusy = true;
             try
             {
-                var a = SelectedMember;
-                //var member = new MemberDto { Email = this.Email, TeamId = teamId };
-                //await apiService.Add(member, "members");
-                //await Navigation.PopAsync();
+                var workUnit = new WorkUnit
+                {
+                    DayOfWeek = day,
+                    Start = SelectedStartTime,
+                    End = SelectedEndTime,
+                    MemberId = SelectedMember.Id,
+                    ScheduleId = scheduleId
+                };
+                await apiService.Add(workUnit, "workunit");
+                await Navigation.PopAsync();
             }
             catch (Exception e)
             {
