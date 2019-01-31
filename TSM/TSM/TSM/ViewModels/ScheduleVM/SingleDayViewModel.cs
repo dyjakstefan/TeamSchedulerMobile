@@ -21,7 +21,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         public List<Member> Members { get; set; }
 
-        public ObservableCollection<WorkUnit> WorkUnits { get; set; }
+        public ObservableCollection<MemberList> MembersWorkUnitsList { get; set; }
 
         public Command LoadWorkUnitsCommand { get; set; }
 
@@ -34,7 +34,7 @@ namespace TSM.ViewModels.ScheduleVM
             Schedule = schedule;
             Members = members;
             this.day = day;
-            WorkUnits = new ObservableCollection<WorkUnit>();
+            MembersWorkUnitsList = new ObservableCollection<MemberList>();
             LoadWorkUnitsCommand = new Command(async () => await LoadWorkUnits());
             OnAddWorkUnitCommand = new Command(async () => await OnAddWorkUnit(), () => !IsBusy);
             Navigation = navigation;
@@ -46,12 +46,14 @@ namespace TSM.ViewModels.ScheduleVM
 
             try
             {
-                WorkUnits.Clear();
+                MembersWorkUnitsList.Clear();
                 var workUnits = await apiService.GetAll<WorkUnit>($"workunit/{Schedule.Id}/{day}");
-                foreach (var workUnit in workUnits)
+                foreach (var member in Members)
                 {
-                    workUnit.Member = Members.SingleOrDefault(x => x.Id == workUnit.MemberId);
-                    WorkUnits.Add(workUnit);
+                    var memberList = new MemberList(workUnits.Where(x => x.MemberId == member.Id).ToList());
+                    memberList.FullName = member.User.FullName;
+                    memberList.MemberId = member.Id;
+                    MembersWorkUnitsList.Add(memberList);
                 }
             }
             catch (Exception e)
@@ -67,6 +69,25 @@ namespace TSM.ViewModels.ScheduleVM
         private async Task OnAddWorkUnit()
         {
             await Navigation.PushAsync(new NewWorkUnitPage(Schedule.TeamId, Members, day));
+        }
+    }
+
+    public class MemberList : List<WorkUnit>
+    {
+        public string FullName { get; set; }
+
+        public int MemberId { get; set; }
+
+        public List<WorkUnit> WorkUnits => this;
+
+        public MemberList()
+        {
+        }
+
+        public MemberList(IEnumerable<WorkUnit> workUnits)
+        {
+            foreach (var unit in workUnits)
+                WorkUnits.Add(unit);
         }
     }
 }

@@ -2,23 +2,51 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.SchedulePages.NewWorkUnitPage"
+             x:Name="NewWorkUnitView"
             Title="Nowe zadanie">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding OnAddWorkUnitEntryCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Członek" FontAttributes="Bold" />
             <Picker x:Name="MemberPicker"
                     ItemsSource="{Binding Members}" ItemDisplayBinding="{Binding User.FullName}" SelectedItem="{Binding SelectedMember, Mode=TwoWay}" />
+
+            <ListView x:Name="WorkUnitsListView" 
+                      HasUnevenRows="True" 
+                      ItemsSource="{Binding WorkUnits}" 
+                      IsPullToRefreshEnabled="false"
+                      CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="10" Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand" BackgroundColor="LightGray">
+                                <Button Text="x" FontSize="Small" TextColor="White" BackgroundColor="Red" HorizontalOptions="End" 
+                                        HeightRequest="30" WidthRequest="30" BorderColor="Black" BorderWidth="1" Command="{Binding Source={x:Reference Name=NewWorkUnitView}, Path=BindingContext.OnDeleteWorkUnitCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                    <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                    <TimePicker Time="{Binding SelectedStartTime}" Format="HH:mm" HorizontalOptions="End"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                    <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                    <TimePicker Time="{Binding SelectedEndTime}" Format="HH:mm" HorizontalOptions="End"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" BackgroundColor="SkyBlue"/>
-                <TimePicker x:Name="StartTimePicker" Time="{Binding SelectedStartTime}" Format="HH:mm" HorizontalOptions="End" BackgroundColor="LightGoldenrodYellow"/>
+                <Button Command="{Binding AddWorkUnitCommand}" Text="Zapisz" TextColor="White"  
+                        FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
+                        BackgroundColor="#3897F0" HeightRequest="50"/>
+                <Button Command="{Binding OnAddWorkUnitEntryCommand}" Text="+" TextColor="White"  
+                        FontAttributes="Bold" FontSize="Large" HorizontalOptions="End"
+                        BackgroundColor="#3897F0" HeightRequest="50"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" BackgroundColor="SpringGreen"/>
-                <TimePicker x:Name="EndTimePicker" Time="{Binding SelectedEndTime}" Format="HH:mm" HorizontalOptions="End" BackgroundColor="IndianRed"/>
-            </StackLayout>
-            <Button Command="{Binding AddWorkUnitCommand}" Text="Dodaj" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#3897F0" HeightRequest="50"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

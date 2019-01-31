@@ -18,7 +18,6 @@ namespace TSM.Views.SchedulePages
 	    public NewWorkUnitPage(int scheduleId, List<Member> members, DayOfWeek day)
 	    {
 	        InitializeComponent();
-	        InitializeComponent();
 	        viewModel = new NewWorkUnitViewModel(Navigation, scheduleId, members, day);
 	        BindingContext = viewModel;
 	    }
