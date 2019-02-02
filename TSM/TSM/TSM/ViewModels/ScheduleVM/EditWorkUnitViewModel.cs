@@ -2,33 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
+using TSM.Dto;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
-using System.Threading.Tasks;
-using TSM.Dto;
 
 namespace TSM.ViewModels.ScheduleVM
 {
-    public class NewWorkUnitViewModel : BaseViewModel
+    public class EditWorkUnitViewModel : BaseViewModel
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
         private int scheduleId;
-
-        private DayOfWeek day;
-
-        private Member selectedMember;
-
-        public Member SelectedMember
-        {
-            get { return selectedMember; }
-            set
-            {
-                SetProperty(ref selectedMember, value);
-                AddWorkUnitCommand.ChangeCanExecute();
-            }
-        }
 
         public new bool IsBusy
         {
@@ -36,49 +22,46 @@ namespace TSM.ViewModels.ScheduleVM
             set
             {
                 SetProperty(ref isBusy, value);
-                AddWorkUnitCommand.ChangeCanExecute();
+                EditWorkUnitCommand.ChangeCanExecute();
             }
         }
 
         public ObservableCollection<WorkUnit> WorkUnits { get; set; }
 
-        public List<Member> Members { get; set; }
+        public MemberList MemberList { get; set; }
 
         public INavigation Navigation { get; set; }
 
-        public Command AddWorkUnitCommand { get; protected set; }
+        public Command EditWorkUnitCommand { get; protected set; }
 
         public Command OnAddWorkUnitEntryCommand { get; protected set; }
 
         public Command OnDeleteWorkUnitCommand { get; protected set; }
 
-        public NewWorkUnitViewModel(INavigation navigation, int scheduleId, List<Member> members, DayOfWeek day)
+        public EditWorkUnitViewModel(INavigation navigation, int scheduleId, MemberList memberList)
         {
-            Members = members;
-            AddWorkUnitCommand = new Command(async () => await AddWorkUnit(), () => !IsBusy && SelectedMember != null);
-            OnAddWorkUnitEntryCommand = new Command(AddWorkUnitEntry, () => !IsBusy);
+            MemberList = memberList;
+            EditWorkUnitCommand = new Command(async () => await EditWorkUnit(), () => !IsBusy);
             OnDeleteWorkUnitCommand = new Command(DeleteWorkUnit);
             Navigation = navigation;
             this.scheduleId = scheduleId;
-            this.day = day;
 
-            WorkUnits = new ObservableCollection<WorkUnit>();
-            AddWorkUnitEntry();
+            WorkUnits = new ObservableCollection<WorkUnit>(memberList.WorkUnits);
         }
 
-        protected async Task AddWorkUnit()
+        protected async Task EditWorkUnit()
         {
             IsBusy = true;
 
             try
             {
-                foreach (var workUnit in WorkUnits)
+                var workUnitListDto = new WorkUnitListDto
                 {
-                    workUnit.DayOfWeek = day;
-                    workUnit.MemberId = SelectedMember.Id;
-                    workUnit.ScheduleId = scheduleId;
-                    await apiService.Add(workUnit, "workunit");
-                }
+                    MemberId = MemberList.MemberId,
+                    ScheduleId = scheduleId,
+                    WorkUnits = new List<WorkUnit>(WorkUnits)
+                };
+                await apiService.Update(workUnitListDto, "workunit/list");
                 await Navigation.PopAsync();
             }
             catch (Exception e)
@@ -89,11 +72,6 @@ namespace TSM.ViewModels.ScheduleVM
             {
                 IsBusy = false;
             }
-        }
-
-        protected void AddWorkUnitEntry()
-        {
-            WorkUnits.Add(new WorkUnit { Start = new TimeSpan(0, 8, 0, 0), End = new TimeSpan(0, 16, 0, 0) });
         }
 
         protected void DeleteWorkUnit(object obj)

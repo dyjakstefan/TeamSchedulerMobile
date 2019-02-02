@@ -27,6 +27,8 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command OnAddWorkUnitCommand { get; set; }
 
+        public Command OnWorkUnitSelectedCommand { get; set; }
+
         public INavigation Navigation { get; set; }
 
         public SingleDayViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
@@ -50,9 +52,11 @@ namespace TSM.ViewModels.ScheduleVM
                 var workUnits = await apiService.GetAll<WorkUnit>($"workunit/{Schedule.Id}/{day}");
                 foreach (var member in Members)
                 {
-                    var memberList = new MemberList(workUnits.Where(x => x.MemberId == member.Id).ToList());
-                    memberList.FullName = member.User.FullName;
-                    memberList.MemberId = member.Id;
+                    var memberList = new MemberList(workUnits.Where(x => x.MemberId == member.Id).ToList())
+                        {
+                            FullName = member.User.FullName,
+                            MemberId = member.Id
+                        };
                     MembersWorkUnitsList.Add(memberList);
                 }
             }
@@ -68,26 +72,7 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async Task OnAddWorkUnit()
         {
-            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.TeamId, Members, day));
-        }
-    }
-
-    public class MemberList : List<WorkUnit>
-    {
-        public string FullName { get; set; }
-
-        public int MemberId { get; set; }
-
-        public List<WorkUnit> WorkUnits => this;
-
-        public MemberList()
-        {
-        }
-
-        public MemberList(IEnumerable<WorkUnit> workUnits)
-        {
-            foreach (var unit in workUnits)
-                WorkUnits.Add(unit);
+            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.Id, Members, day));
         }
     }
 }

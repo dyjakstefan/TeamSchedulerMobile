@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,8 @@ namespace TSM.Views.SchedulePages
 		public SingleDayPage (Schedule schedule, List<Member> members, DayOfWeek day)
 		{
 			InitializeComponent ();
-		    Title = day.ToString();
+            var polish = new CultureInfo("pl-PL");
+		    Title = polish.DateTimeFormat.DayNames[(int)day];
 		    viewModel = new SingleDayViewModel(Navigation, schedule, members, day);
 		    BindingContext = viewModel;
 		}
@@ -30,15 +32,16 @@ namespace TSM.Views.SchedulePages
 	    }
 
 	    private async void OnWorkUnitSelected(object sender, SelectedItemChangedEventArgs args)
-	    {
-	        //var team = args.SelectedItem as Team;
-	        //if (team == null)
-	        //{
-	        //    return;
-	        //}
+        {
+            var workUnit = args.SelectedItem as WorkUnit;
+            if (workUnit == null)
+            {
+                return;
+            }
 
-	        //await Navigation.PushAsync(new EditTaskPage(team));
-	        //TasksListView.SelectedItem = null;
-	    }
+            var memberList = viewModel.MembersWorkUnitsList.SingleOrDefault(x => x.MemberId == workUnit.MemberId);
+            await Navigation.PushAsync(new EditWorkUnitPage(viewModel.Schedule.Id, memberList));
+            WorkUnitsListView.SelectedItem = null;
+        }
     }
 }

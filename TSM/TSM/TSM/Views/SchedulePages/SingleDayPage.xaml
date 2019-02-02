@@ -8,10 +8,10 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="TasksListView" 
+            <ListView x:Name="WorkUnitsListView" 
                       HasUnevenRows="True" 
                       ItemsSource="{Binding MembersWorkUnitsList}" 
-                      ItemSelected="OnWorkUnitSelected" 
+                      ItemSelected="OnWorkUnitSelected"
                       RefreshCommand="{Binding LoadWorkUnitsCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -20,16 +20,7 @@
                       GroupDisplayBinding="{Binding FullName}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <!--<StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
-                                <Label Text="{Binding Start}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>-->
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                    <Label Text="{Binding Start, StringFormat='{0:hh\\:mm}'}"/>
-                                    <Label Text="-"/>
-                                    <Label Text="{Binding End, StringFormat='{0:hh\\:mm}'}"/>
-                                </StackLayout>
-                            <!--</StackLayout>-->
-                        </ViewCell>
+                        <TextCell Text="{Binding DisplayWorkUnit}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

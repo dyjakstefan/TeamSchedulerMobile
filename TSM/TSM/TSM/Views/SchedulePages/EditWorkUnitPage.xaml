@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TSM.Views.SchedulePages.NewWorkUnitPage"
-             x:Name="NewWorkUnitView"
-            Title="Nowe zadanie">
+             x:Class="TSM.Views.SchedulePages.EditWorkUnitPage"
+             x:Name="EditWorkUnitView"
+             Title="Edytuj zadania">
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Członek" FontAttributes="Bold" />
-            <Picker x:Name="MemberPicker"
-                    ItemsSource="{Binding Members}" ItemDisplayBinding="{Binding User.FullName}" SelectedItem="{Binding SelectedMember, Mode=TwoWay}" />
+            <Label Text="{Binding MemberList.FullName}" FontSize="Large" />
 
             <ListView x:Name="WorkUnitsListView" 
                       HasUnevenRows="True" 
@@ -20,7 +19,7 @@
                         <ViewCell>
                             <StackLayout Margin="10" Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Button Text="x" FontSize="Small" TextColor="White" BackgroundColor="Red" HorizontalOptions="End" 
-                                        HeightRequest="30" WidthRequest="30" BorderColor="Black" BorderWidth="1" Command="{Binding Source={x:Reference Name=NewWorkUnitView}, Path=BindingContext.OnDeleteWorkUnitCommand}"
+                                        HeightRequest="30" WidthRequest="30" BorderColor="Black" BorderWidth="1" Command="{Binding Source={x:Reference Name=EditWorkUnitView}, Path=BindingContext.OnDeleteWorkUnitCommand}"
                                         CommandParameter="{Binding .}"/>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                                     <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
@@ -36,14 +35,9 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Button Command="{Binding AddWorkUnitCommand}" Text="Zapisz" TextColor="White"  
-                        FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
-                        BackgroundColor="#3897F0" HeightRequest="50"/>
-                <Button Command="{Binding OnAddWorkUnitEntryCommand}" Text="+" TextColor="White"  
-                        FontAttributes="Bold" FontSize="Large" HorizontalOptions="End"
-                        BackgroundColor="#3897F0" HeightRequest="50"/>
+            <Button Command="{Binding EditWorkUnitCommand}" Text="Zapisz" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#3897F0" HeightRequest="50"/>
             </StackLayout>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

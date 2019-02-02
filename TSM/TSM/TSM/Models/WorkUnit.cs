@@ -17,5 +17,7 @@ namespace TSM.Models
         public int MemberId { get; set; }
 
         public Member Member { get; set; }
+
+        public string DisplayWorkUnit => $"{Start:hh\\:mm} - {End:hh\\:mm}";
     }
 }
