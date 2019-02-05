@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using TSM.Dto;
 using TSM.Enums;
-using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;

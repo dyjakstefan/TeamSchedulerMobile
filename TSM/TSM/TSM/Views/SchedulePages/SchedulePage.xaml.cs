@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TSM.Models;
+using TSM.Views.WorkUnitPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

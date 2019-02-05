@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TSM.Models
+﻿namespace TSM.Models
 {
     public class Jwt : Entity
     {

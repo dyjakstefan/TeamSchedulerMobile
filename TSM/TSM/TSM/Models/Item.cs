@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TSM.Models
+﻿namespace TSM.Models
 {
     public class Item
     {

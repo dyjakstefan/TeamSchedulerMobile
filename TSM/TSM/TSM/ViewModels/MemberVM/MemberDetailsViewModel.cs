@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TSM.Dto;
 using TSM.Enums;
@@ -18,7 +17,7 @@ namespace TSM.ViewModels.MemberVM
 
         private JobTitle jobTitle;
 
-        private Member member;
+        public Member Member { get; set; }
 
         public int Hours
         {
@@ -56,7 +55,7 @@ namespace TSM.ViewModels.MemberVM
             EditMemberCommand = new Command(async () => await EditMember(), () => !IsBusy);
             DeleteMemberCommand = new Command(async () => await DeleteMember(), () => !IsBusy);
             Navigation = navigation;
-            this.member = member;
+            this.Member = member;
             Hours = member.Hours;
             JobTitle = member.Title;
             Titles = new List<string>();
@@ -69,9 +68,9 @@ namespace TSM.ViewModels.MemberVM
             IsBusy = true;
             try
             {
-                member.Hours = Hours;
-                member.Title = JobTitle;
-                var memberDto = new MemberDto { Hours = member.Hours, MemberId = member.Id, TeamId = member.TeamId, Title = member.Title };
+                Member.Hours = Hours;
+                Member.Title = JobTitle;
+                var memberDto = new MemberDto { Hours = Member.Hours, MemberId = Member.Id, TeamId = Member.TeamId, Title = Member.Title };
                 await apiService.Update(memberDto, "members");
                 await Navigation.PopAsync();
             }
@@ -94,7 +93,7 @@ namespace TSM.ViewModels.MemberVM
 
             try
             {
-                var memberDto = new MemberDto { MemberId = member.Id, TeamId = member.TeamId };
+                var memberDto = new MemberDto { MemberId = Member.Id, TeamId = Member.TeamId };
                 await apiService.Delete(memberDto, "members");
                 await Navigation.PopAsync();
             }

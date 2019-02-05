@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TSM.Models;
-using TSM.ViewModels.MemberVM;
+﻿using TSM.Models;
 using TSM.ViewModels.ScheduleVM;
-using TSM.Views.MemberPages;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

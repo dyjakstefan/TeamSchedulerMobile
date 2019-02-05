@@ -16,9 +16,8 @@
             <Label Text="Stanowisko" FontAttributes="Bold"/>
             <Picker x:Name="TitlePicker"
                     ItemsSource="{Binding Titles}" SelectedIndexChanged="OnPickerSelectedIndexChanged" />
-            <Button Command="{Binding AddMemberCommand}" Text="Dodaj" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#3897F0" HeightRequest="50"/>
+            <Button Command="{Binding AddMemberCommand}" Text="Dodaj"
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

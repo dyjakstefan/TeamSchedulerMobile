@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using TSM.Models;
 using TSM.Services;
-using TSM.Views;
+using TSM.Views.TeamPages;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
 
@@ -29,7 +26,7 @@ namespace TSM.ViewModels.TeamVM
         {
             Teams = new ObservableCollection<Team>();
             LoadTeamsCommand = new Command(async () => await LoadTeams());
-            EditTeamCommand = new Command(async () => await EditTeam(), () => !IsBusy);
+            EditTeamCommand = new Command<Team>(async (team) => await EditTeam(team));
             DeleteTeamCommand = new Command<Team>(async (team) => await DeleteTeam(team));
             Navigation = navigation;
         }
@@ -57,12 +54,11 @@ namespace TSM.ViewModels.TeamVM
             }
         }
 
-        private async Task EditTeam()
+        private async Task EditTeam(Team team)
         {
             if (isBusy)
                 return;
-
-            await Navigation.PushAsync(new LoginPage());
+            await Navigation.PushAsync(new EditTeamPage(team));
         }
 
         private async Task DeleteTeam(Team team)

@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TSM.Views.TeamListPage"
              Title="Zespoły"
-             x:Name="BrowseTeamsPage">
+             x:Name="TeamsView">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="OnAddTeamClicked" />
+        <ToolbarItem Text="Add" Icon="ic_action_new.png" Clicked="OnAddTeamClicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -21,8 +21,8 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Text="Edytuj" Clicked="OnEditTeamClicked" CommandParameter="{Binding .}" x:Name="EditTeam"/>
-                                <MenuItem Text="Usuń" Clicked="OnDeleteTeamClicked" CommandParameter="{Binding .}" x:Name="DeleteTeam" IsDestructive="True"/>
+                                <MenuItem Text="Edytuj" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.EditTeamCommand}" CommandParameter="{Binding .}" x:Name="EditTeam"/>
+                                <MenuItem Text="Usuń" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.DeleteTeamCommand}" CommandParameter="{Binding .}" x:Name="DeleteTeam" IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
@@ -31,7 +31,7 @@
                                     <Label Text="{Binding Members.Count}" FontSize="Small"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                    <Label Text="Liczba grafików:"/>
+                                    <Label Text="Liczba planów:"/>
                                     <Label Text="{Binding Schedules.Count}" FontSize="Small"/>
                                 </StackLayout>
                             </StackLayout>

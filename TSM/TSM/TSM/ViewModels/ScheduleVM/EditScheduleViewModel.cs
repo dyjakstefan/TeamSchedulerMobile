@@ -1,0 +1,91 @@
+﻿using System;
+using System.Threading.Tasks;
+using TSM.Models;
+using TSM.Services;
+using Xamarin.Forms;
+
+namespace TSM.ViewModels.ScheduleVM
+{
+    public class EditScheduleViewModel : BaseViewModel
+    {
+        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+
+        private string name;
+
+        private string description;
+
+        private DateTime startAt;
+
+        private DateTime endAt;
+
+        private int scheduleId;
+
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
+        }
+
+        public string Description
+        {
+            get { return description; }
+            set { SetProperty(ref description, value); }
+        }
+
+        public DateTime StartAt
+        {
+            get { return startAt; }
+            set { SetProperty(ref startAt, value); }
+        }
+
+        public DateTime EndAt
+        {
+            get { return endAt; }
+            set { SetProperty(ref endAt, value); }
+        }
+
+        public new bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                SetProperty(ref isBusy, value);
+                EditScheduleCommand.ChangeCanExecute();
+            }
+        }
+
+        public INavigation Navigation { get; set; }
+
+        public Command EditScheduleCommand { get; protected set; }
+
+        public EditScheduleViewModel(INavigation navigation, Schedule schedule)
+        {
+            EditScheduleCommand = new Command(async () => await EditSchedule(), () => !IsBusy);
+            Navigation = navigation;
+            StartAt = schedule.StartAt;
+            EndAt = schedule.EndAt;
+            Name = schedule.Name;
+            Description = schedule.Description;
+            scheduleId = schedule.Id;
+        }
+
+        protected async Task EditSchedule()
+        {
+            IsBusy = true;
+            try
+            {
+                var schedule = new Schedule { Name = this.Name, Id = scheduleId, Description = this.Description, StartAt = this.StartAt, EndAt = this.EndAt };
+                await apiService.Update(schedule, "schedules");
+                await Navigation.PopAsync();
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+    }
+}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
-
-namespace TSM.Services
+﻿namespace TSM.Services
 {
     public interface IFileHelper
     {

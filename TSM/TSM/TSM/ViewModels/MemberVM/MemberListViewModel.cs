@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views.MemberPages;

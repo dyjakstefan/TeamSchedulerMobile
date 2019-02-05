@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TSM.Dto;
 using TSM.Models;
 using TSM.Services;
 using Xamarin.Forms;
@@ -16,12 +12,36 @@ namespace TSM.ViewModels.ScheduleVM
 
         private string name;
 
+        private string description;
+
+        private DateTime startAt;
+
+        private DateTime endAt;
+
         private int teamId;
 
         public string Name
         {
             get { return name; }
             set { SetProperty(ref name, value); }
+        }
+
+        public string Description
+        {
+            get { return description; }
+            set { SetProperty(ref description, value); }
+        }
+
+        public DateTime StartAt
+        {
+            get { return startAt; }
+            set { SetProperty(ref startAt, value); }
+        }
+
+        public DateTime EndAt
+        {
+            get { return endAt; }
+            set { SetProperty(ref endAt, value); }
         }
 
         public new bool IsBusy
@@ -43,6 +63,8 @@ namespace TSM.ViewModels.ScheduleVM
             AddScheduleCommand = new Command(async () => await AddSchedule(), () => !IsBusy);
             Navigation = navigation;
             this.teamId = teamId;
+            StartAt = DateTime.Now;
+            EndAt = DateTime.Now;
         }
 
         protected async Task AddSchedule()
@@ -50,7 +72,7 @@ namespace TSM.ViewModels.ScheduleVM
             IsBusy = true;
             try
             {
-                var schedule = new Schedule { Name = this.Name, TeamId = teamId };
+                var schedule = new Schedule { Name = this.Name, TeamId = teamId, Description = this.Description, StartAt = this.StartAt, EndAt = this.EndAt };
                 await apiService.Add(schedule, "schedules");
                 await Navigation.PopAsync();
             }

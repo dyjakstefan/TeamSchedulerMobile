@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TSM.Views.WorkUnitPages.SingleDayPage"
+             Title="Single Day">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Icon="ic_action_new.png" Command="{Binding OnAddWorkUnitCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="WorkUnitsListView" 
+                      HasUnevenRows="True" 
+                      ItemsSource="{Binding MembersWorkUnitsList}" 
+                      ItemSelected="OnWorkUnitSelected"
+                      RefreshCommand="{Binding LoadWorkUnitsCommand}"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      CachingStrategy="RecycleElement"
+                      IsGroupingEnabled="True">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10" Margin="0, 10, 0, 0">
+                                <Label Text="{Binding FullName}" FontSize="Medium" FontAttributes="Bold"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill" Padding="10">
+                                <Label Text="{Binding DisplayWorkUnit}" TextColor="MediumVioletRed" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+                                <Label Text="{Binding Description}" FontSize="Small" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center" Margin="10, 0, 0, 0"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

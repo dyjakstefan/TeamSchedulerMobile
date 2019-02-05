@@ -4,7 +4,7 @@
              x:Class="TSM.Views.MemberPages.MemberListPage"             
              Title="Członkowie">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding OnAddMemberCommand}"/>
+        <ToolbarItem Text="Add" Icon="ic_action_new.png" Command="{Binding OnAddMemberCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -22,7 +22,6 @@
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
                                 <Label Text="{Binding Title}" FontSize="Small" LineBreakMode="NoWrap"/>
-                                <Label Text="{Binding User.Email}" FontSize="Small" LineBreakMode="NoWrap"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -1,5 +1,4 @@
-﻿using System;
-using TSM.Models;
+﻿using TSM.Models;
 using TSM.Views.MemberPages;
 using TSM.Views.SchedulePages;
 using Xamarin.Forms;

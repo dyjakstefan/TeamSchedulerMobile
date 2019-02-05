@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TSM.Models
 {
@@ -9,6 +7,8 @@ namespace TSM.Models
         public bool IsAccepted { get; set; }
 
         public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -19,5 +19,10 @@ namespace TSM.Models
         public DateTime EndAt { get; set; }
 
         public int TeamId { get; set; }
+
+        public bool IsDescriptionNotEmpty
+        {
+            get { return !string.IsNullOrWhiteSpace(Description); }
+        }
     }
 }

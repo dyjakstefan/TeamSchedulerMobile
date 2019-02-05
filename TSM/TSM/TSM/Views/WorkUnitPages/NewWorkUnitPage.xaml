@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TSM.Views.WorkUnitPages.NewWorkUnitPage"
+             x:Name="NewWorkUnitView"
+            Title="Nowe zadanie">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Członek" FontAttributes="Bold" />
+            <Picker x:Name="MemberPicker"
+                    ItemsSource="{Binding Members}" ItemDisplayBinding="{Binding User.FullName}" SelectedItem="{Binding SelectedMember, Mode=TwoWay}" />
+
+            <ListView x:Name="WorkUnitsListView" 
+                      HasUnevenRows="True" 
+                      ItemsSource="{Binding WorkUnits}" 
+                      IsPullToRefreshEnabled="false"
+                      CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="10" Padding="5" Orientation="Vertical" VerticalOptions="StartAndExpand">
+                                <Button HorizontalOptions="End" Image="baseline_close_black_18.png" WidthRequest="40" HeightRequest="40"
+                                        Command="{Binding Source={x:Reference Name=NewWorkUnitView}, Path=BindingContext.OnDeleteWorkUnitCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                    <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                    <TimePicker Time="{Binding Start}" Format="HH:mm" HorizontalOptions="End"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                    <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                                    <TimePicker Time="{Binding End}" Format="HH:mm" HorizontalOptions="End"/>
+                                </StackLayout>
+                                <Label Text="Opis" FontAttributes="Bold" FontSize="Small" />
+                                <Entry x:Name="DescriptionEntry" Text="{Binding Description}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Button Command="{Binding AddWorkUnitCommand}" Text="Zapisz"
+                        FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+                <Button Command="{Binding OnAddWorkUnitEntryCommand}" Image="ic_action_new"
+                        HorizontalOptions="End" HeightRequest="50"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

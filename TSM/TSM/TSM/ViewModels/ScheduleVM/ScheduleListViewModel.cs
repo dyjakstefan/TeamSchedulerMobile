@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Threading.Tasks;
 using TSM.Models;
 using TSM.Services;
-using TSM.Views;
 using TSM.Views.SchedulePages;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
@@ -26,6 +22,8 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command DeleteScheduleCommand { get; set; }
 
+        public Command OnEditScheduleCommand { get; set; }
+
         public INavigation Navigation { get; set; }
 
         public ScheduleListViewModel(INavigation navigation, Team team)
@@ -34,6 +32,7 @@ namespace TSM.ViewModels.ScheduleVM
             Schedules = new ObservableCollection<Schedule>();
             LoadSchedulesCommand = new Command(async () => await LoadSchedules());
             DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule));
+            OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule));
             OnAddScheduleCommand = new Command(async () => await OnAddSchedule(), () => !IsBusy);
             Navigation = navigation;
         }
@@ -84,6 +83,11 @@ namespace TSM.ViewModels.ScheduleVM
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task EditSchedule(Schedule schedule)
+        {
+            await Navigation.PushAsync(new EditSchedulePage(schedule));
         }
 
         private async Task OnAddSchedule()

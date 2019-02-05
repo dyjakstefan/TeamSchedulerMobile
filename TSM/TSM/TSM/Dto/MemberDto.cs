@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TSM.Enums;
+﻿using TSM.Enums;
 
 namespace TSM.Dto
 {

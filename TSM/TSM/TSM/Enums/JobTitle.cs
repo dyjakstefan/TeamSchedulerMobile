@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TSM.Enums
+﻿namespace TSM.Enums
 {
     public enum JobTitle
     {

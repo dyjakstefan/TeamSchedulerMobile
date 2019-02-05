@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TSM.Dto
+﻿namespace TSM.Dto
 {
     public class JwtDto
     {

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TSM.Views.SchedulePages.EditSchedulePage"
+             Title="Edytuj plan">
+    <ContentPage.Content>
+        <StackLayout Padding="15">
+            <Label Text="Nazwa" FontSize="Small" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" Text="{Binding Name}" />
+            <Label Text="Opis" FontSize="Small" FontAttributes="Bold"  />
+            <Entry x:Name="DescriptionEntry" Text="{Binding Description}" />
+            <Label Text="Początek" FontSize="Small" FontAttributes="Bold"  />
+            <DatePicker Date="{Binding StartAt}" />
+            <Label Text="Koniec" FontSize="Small" FontAttributes="Bold"  />
+            <DatePicker Date="{Binding EndAt}"/>
+            <Button Command="{Binding EditScheduleCommand}" Text="Zapisz" 
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

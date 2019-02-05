@@ -6,10 +6,9 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Nazwa" FontSize="Medium" />
-            <Entry x:Name="NameEntry" Text="{Binding Name}" FontSize="Small" />
-            <Button Command="{Binding AddTeamCommand}" Text="Zapisz" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand"
-                    BackgroundColor="#3897F0" HeightRequest="50"/> 
+            <Entry x:Name="NameEntry" Text="{Binding Name}" FontSize="Medium" />
+            <Button Command="{Binding AddTeamCommand}" Text="Zapisz"
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/> 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -2,18 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using Xamarin.Forms;
-
-using TSM.Models;
-using TSM.Services;
 
 namespace TSM.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
-
         protected bool isBusy = false;
         public bool IsBusy
         {
