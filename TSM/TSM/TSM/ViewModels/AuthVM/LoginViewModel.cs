@@ -3,6 +3,7 @@ using System.Linq;
 using TSM.Helpers;
 using TSM.Services;
 using TSM.Views;
+using TSM.Views.TeamPages;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
 
@@ -56,8 +57,9 @@ namespace TSM.ViewModels.AuthVM
                 var jwt = await authService.Login(email, password);
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
-                Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
-                await Navigation.PopAsync();
+                //Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
+                //await Navigation.PopAsync();
+                Application.Current.MainPage = new MainPage();
             }
             catch (Exception e)
             {

@@ -28,5 +28,13 @@ namespace TSM.Helpers
             get { return AppSettings.GetValueOrDefault("BaseAddress", ""); }
             set { AppSettings.AddOrUpdateValue("BaseAddress", value); }
         }
+
+        public static bool IsAuthenticated => !string.IsNullOrWhiteSpace(AccessToken) && AccessTokenExpirationDate > DateTime.Now;
+
+        public static void Logout()
+        {
+            AccessToken = string.Empty;
+            AccessTokenExpirationDate = DateTime.MinValue;
+        }
     }
 }

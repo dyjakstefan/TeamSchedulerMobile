@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views.SchedulePages;
@@ -45,6 +46,7 @@ namespace TSM.ViewModels.ScheduleVM
             {
                 Schedules.Clear();
                 var schedules = await apiService.GetAll<Schedule>(Team.Id, "schedules/all");
+                schedules = schedules.OrderBy(x => x.IsNotActive).ThenBy(x => x.StartAt).ToList();
                 foreach (var schedule in schedules)
                 {
                     Schedules.Add(schedule);

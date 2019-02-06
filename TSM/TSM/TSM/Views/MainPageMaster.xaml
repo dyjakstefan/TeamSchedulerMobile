@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:TSM.Views;assembly=TSM"
+             xmlns:teamPages="clr-namespace:TSM.Views.TeamPages;assembly=TSM"
+             x:Class="TSM.Views.MainPageMaster"
+             Icon="hamburger.png"
+             Title="Master">
+  <StackLayout>
+    <ListView x:Name="MenuItemsListView"
+              SeparatorVisibility="None"
+              HasUnevenRows="true">
+        <ListView.ItemsSource>
+            <x:Array Type="{x:Type views:MainPageMenuItem}">
+                <views:MainPageMenuItem Id="1" Title="Zespoły" IconSource="baseline_people_black_18.png" TargetType="{x:Type teamPages:TeamListPage}" />
+                <views:MainPageMenuItem Id="2" Title="Wyloguj się" IconSource="baseline_power_settings_new_black_18.png" TargetType="{x:Type views:LoginPage}" />
+            </x:Array>
+        </ListView.ItemsSource>
+      <ListView.Header>
+        <Grid BackgroundColor="#03A9F4">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+              <RowDefinition Height="30"/>
+              <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+          </Grid.RowDefinitions>
+          <Label
+              Grid.Column="1"
+              Grid.Row="1"
+              Text="Team Scheduler"
+              Style="{DynamicResource SubtitleStyle}"/>
+        </Grid>
+      </ListView.Header>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+            <ViewCell>
+                <Grid Padding="5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding IconSource}" />
+                    <Label Grid.Column="1" Text="{Binding Title}" />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

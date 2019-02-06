@@ -5,6 +5,7 @@ using TSM.Dto;
 using TSM.Helpers;
 using TSM.Services;
 using TSM.Views;
+using TSM.Views.TeamPages;
 using Xamarin.Forms;
 
 namespace TSM.ViewModels.AuthVM
@@ -83,7 +84,6 @@ namespace TSM.ViewModels.AuthVM
                 var rootPage = Navigation.NavigationStack.FirstOrDefault();
                 if (rootPage != null)
                 {
-                    App.IsUserLoggedIn = true;
                     Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.First());
                     await Navigation.PopToRootAsync();
                 }

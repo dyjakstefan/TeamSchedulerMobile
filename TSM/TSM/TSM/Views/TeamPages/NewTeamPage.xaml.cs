@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TSM.Views
+namespace TSM.Views.TeamPages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewTeamPage : ContentPage

@@ -13,15 +13,18 @@ namespace TSM.ViewModels.ScheduleVM
 
         private int teamId;
 
+        private int scheduleId;
+
         public ObservableCollection<Member> Members { get; set; }
 
         public Command LoadMembersCommand { get; set; }
 
         public INavigation Navigation { get; set; }
 
-        public SummaryViewModel(INavigation navigation, int teamId)
+        public SummaryViewModel(INavigation navigation, int teamId, int scheduleId)
         {
             this.teamId = teamId;
+            this.scheduleId = scheduleId;
             Members = new ObservableCollection<Member>();
             LoadMembersCommand = new Command(async () => await LoadMembers());
             Navigation = navigation;
@@ -34,8 +37,8 @@ namespace TSM.ViewModels.ScheduleVM
             try
             {
                 Members.Clear();
-                var team = await apiService.Get<Team>(teamId, "teams");
-                foreach (var member in team.Members)
+                var members = await apiService.GetAll<Member>($"members/{teamId}/{scheduleId}");
+                foreach (var member in members)
                 {
                     Members.Add(member);
                 }

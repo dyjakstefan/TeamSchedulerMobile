@@ -4,7 +4,7 @@ using TSM.ViewModels.TeamVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace TSM.Views
+namespace TSM.Views.TeamPages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TeamListPage : ContentPage
@@ -26,7 +26,7 @@ namespace TSM.Views
 	            return;
             }
 
-	        await Navigation.PushAsync(new MainPage(team));
+	        await Navigation.PushAsync(new TeamPage(team));
 	        TeamListView.SelectedItem = null;
 	    }
 

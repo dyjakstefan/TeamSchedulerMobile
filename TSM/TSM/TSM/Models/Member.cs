@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TSM.Enums;
 
 namespace TSM.Models
@@ -17,6 +18,10 @@ namespace TSM.Models
 
         public User User { get; set; }
 
+        public TimeSpan AssignedTime { get; set; }
+
         public List<WorkUnit> WorkUnits { get; set; }
+
+        public string DisplayAssignedTime => $"{AssignedTime:hh\\:mm}";
     }
 }

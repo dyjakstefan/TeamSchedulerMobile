@@ -13,14 +13,9 @@ namespace TSM.Views.SchedulePages
         public SummaryPage (Schedule schedule)
 		{
 			InitializeComponent ();
-		    viewModel = new SummaryViewModel(Navigation, schedule.TeamId);
+		    viewModel = new SummaryViewModel(Navigation, schedule.TeamId, schedule.Id);
 		    BindingContext = viewModel;
         }
-
-	    private void OnMemberSelected(object sender, SelectedItemChangedEventArgs args)
-	    {
-	        MemberListView.SelectedItem = null;
-	    }
 
 	    protected override void OnAppearing()
 	    {

@@ -26,10 +26,15 @@
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsNotActive}">
                                     <Label Text="{Binding StartAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="MediumVioletRed"/>
                                     <Label Text="-" FontSize="Small" TextColor="MediumVioletRed"/>
                                     <Label Text="{Binding EndAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="MediumVioletRed"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsActive}">
+                                    <Label Text="{Binding StartAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="LimeGreen"/>
+                                    <Label Text="-" FontSize="Small" TextColor="LimeGreen"/>
+                                    <Label Text="{Binding EndAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="LimeGreen"/>
                                 </StackLayout>
                                 <Label Text="{Binding Description}" IsVisible="{Binding IsDescriptionNotEmpty}" FontSize="Small" Style="{DynamicResource ListItemDetailTextStyle}" />
                             </StackLayout>

@@ -4,8 +4,6 @@ namespace TSM.Models
 {
     public class Schedule : Entity
     {
-        public bool IsAccepted { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -20,9 +18,10 @@ namespace TSM.Models
 
         public int TeamId { get; set; }
 
-        public bool IsDescriptionNotEmpty
-        {
-            get { return !string.IsNullOrWhiteSpace(Description); }
-        }
+        public bool IsActive => DateTime.Now >= StartAt && DateTime.Now <= EndAt;
+
+        public bool IsNotActive => !IsActive;
+
+        public bool IsDescriptionNotEmpty => !string.IsNullOrWhiteSpace(Description);
     }
 }

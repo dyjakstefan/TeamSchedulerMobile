@@ -3,27 +3,21 @@ using TSM.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TSM.Views;
+using TSM.Views.TeamPages;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace TSM
 {
     public partial class App : Application
     {
-        public static bool IsUserLoggedIn { get; set; }
+        public static App Instance;
 
         public App()
         {
+            Instance = this;
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.1.65:45455/api/";
-
-            if (!string.IsNullOrWhiteSpace(Settings.AccessToken) && Settings.AccessTokenExpirationDate > DateTime.Now)
-            {
-                MainPage = new NavigationPage(new TeamListPage());
-            }
-            else
-            {
-                MainPage = new NavigationPage(new LoginPage());
-            }
+            Settings.BaseAddress = "http://192.168.0.101:45455/api/";
+            CleanNavigation();
         }
 
         protected override void OnStart()
@@ -39,6 +33,18 @@ namespace TSM
         protected override void OnResume()
         {
             // Handle when your app resumes
+        }
+
+        public void CleanNavigation()
+        {
+            if (Settings.IsAuthenticated)
+            {
+                MainPage = new MainPage();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
         }
     }
 }
