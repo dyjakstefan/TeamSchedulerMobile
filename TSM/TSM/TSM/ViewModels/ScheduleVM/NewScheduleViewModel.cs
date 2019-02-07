@@ -18,6 +18,10 @@ namespace TSM.ViewModels.ScheduleVM
 
         private DateTime endAt;
 
+        private TimeSpan startOfWorkingTime;
+
+        private TimeSpan endOfWorkingTime;
+
         private int teamId;
 
         public string Name
@@ -42,6 +46,18 @@ namespace TSM.ViewModels.ScheduleVM
         {
             get { return endAt; }
             set { SetProperty(ref endAt, value); }
+        }
+
+        public TimeSpan StartOfWorkingTime
+        {
+            get { return startOfWorkingTime; }
+            set { SetProperty(ref startOfWorkingTime, value); }
+        }
+
+        public TimeSpan EndOfWorkingTime
+        {
+            get { return endOfWorkingTime; }
+            set { SetProperty(ref endOfWorkingTime, value); }
         }
 
         public new bool IsBusy
@@ -72,7 +88,16 @@ namespace TSM.ViewModels.ScheduleVM
             IsBusy = true;
             try
             {
-                var schedule = new Schedule { Name = this.Name, TeamId = teamId, Description = this.Description, StartAt = this.StartAt, EndAt = this.EndAt };
+                var schedule = new Schedule
+                {
+                    Name = this.Name,
+                    TeamId = teamId,
+                    Description = this.Description,
+                    StartAt = this.StartAt,
+                    EndAt = this.EndAt,
+                    StartOfWorkingTime = this.StartOfWorkingTime,
+                    EndOfWorkingTime = this.EndOfWorkingTime
+                };
                 await apiService.Add(schedule, "schedules");
                 await Navigation.PopAsync();
             }

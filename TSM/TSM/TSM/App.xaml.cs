@@ -16,7 +16,7 @@ namespace TSM
         {
             Instance = this;
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.0.101:45455/api/";
+            Settings.BaseAddress = "http://192.168.1.65:45455/api/";
             CleanNavigation();
         }
 

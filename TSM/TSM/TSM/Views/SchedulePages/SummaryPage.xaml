@@ -17,8 +17,13 @@
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <Label Text="{Binding DisplayAssignedTime}"/>
-                                <Label Text="{Binding Hours}"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                                    <Label Text="{Binding DisplayHoursFromAssignedTime}" />
+                                    <Label Text="godzin" />
+                                    <Label Text="{Binding DisplayMinutesFromAssignedTime}"/>
+                                    <Label Text="minut /" />
+                                    <Label Text="{Binding Hours}" />
+                                </StackLayout>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

@@ -13,6 +13,14 @@
             <DatePicker Date="{Binding StartAt}" />
             <Label Text="Koniec" FontSize="Small" FontAttributes="Bold"  />
             <DatePicker Date="{Binding EndAt}"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                <TimePicker Time="{Binding StartOfWorkingTime}" Format="HH:mm" HorizontalOptions="End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
+                <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                <TimePicker Time="{Binding EndOfWorkingTime}" Format="HH:mm" HorizontalOptions="End"/>
+            </StackLayout>
             <Button Command="{Binding EditScheduleCommand}" Text="Zapisz" 
                     FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
         </StackLayout>

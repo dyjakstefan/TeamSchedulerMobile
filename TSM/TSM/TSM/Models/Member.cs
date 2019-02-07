@@ -22,6 +22,8 @@ namespace TSM.Models
 
         public List<WorkUnit> WorkUnits { get; set; }
 
-        public string DisplayAssignedTime => $"{AssignedTime:hh\\:mm}";
+        public string DisplayHoursFromAssignedTime => $"{AssignedTime:hh}";
+
+        public string DisplayMinutesFromAssignedTime => $"{AssignedTime:mm}";
     }
 }
