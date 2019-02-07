@@ -20,7 +20,8 @@ namespace TSM.Views.SchedulePages
 	    protected override void OnAppearing()
 	    {
 	        base.OnAppearing();
-	        viewModel.LoadMembersCommand.Execute(null);
+            viewModel.LoadWorkHoursCommand.Execute(null);
+	        //viewModel.LoadMembersCommand.Execute(null);
 	    }
     }
 }

@@ -14,9 +14,10 @@ namespace TSM
 
         public App()
         {
+            Xamarin.Forms.DataGrid.DataGridComponent.Init();
             Instance = this;
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.1.65:45455/api/";
+            Settings.BaseAddress = "http://192.168.0.103:45455/api/";
             CleanNavigation();
         }
 

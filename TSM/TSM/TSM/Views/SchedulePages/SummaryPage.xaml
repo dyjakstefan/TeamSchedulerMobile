@@ -1,11 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
              x:Class="TSM.Views.SchedulePages.SummaryPage"
              Title="Podsumowanie">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="MemberListView" 
+            <dg:DataGrid ItemsSource="{Binding WorkHours}" RowHeight="40" HeaderHeight="50" SelectionEnabled="True" BorderColor="#CCCCCC" HeaderBackground="#E0E6F8" ActiveRowColor="#8899AA"
+                         PullToRefreshCommand="{Binding LoadWorkHoursCommand}" IsRefreshing="{Binding IsBusy}" SortedColumnIndex="0">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="Godzina" PropertyName="DisplayTime" SortingEnabled="True" Width="2*"/>
+                    <dg:DataGridColumn Title="Pn" PropertyName="QuantityForMonday" />
+                    <dg:DataGridColumn Title="Wt" PropertyName="QuantityForTuesday" />
+                    <dg:DataGridColumn Title="Śr" PropertyName="QuantityForWednesday" />
+                    <dg:DataGridColumn Title="Czw" PropertyName="QuantityForThursday" />
+                    <dg:DataGridColumn Title="Pt" PropertyName="QuantityForFriday" />
+                    <dg:DataGridColumn Title="S" PropertyName="QuantityForSaturday" />
+                    <dg:DataGridColumn Title="N" PropertyName="QuantityForSunday" />
+                </dg:DataGrid.Columns>
+                <dg:DataGrid.RowsBackgroundColorPalette>
+                    <dg:PaletteCollection>
+                        <Color>#F2F2F2</Color>
+                        <Color>#FFFFFF</Color>
+                    </dg:PaletteCollection>
+                </dg:DataGrid.RowsBackgroundColorPalette>
+            </dg:DataGrid>
+            
+
+            <!--<ListView x:Name="MemberListView" 
                       HasUnevenRows="True" 
                       ItemsSource="{Binding Members}" 
                       RefreshCommand="{Binding LoadMembersCommand}"
@@ -28,7 +53,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
