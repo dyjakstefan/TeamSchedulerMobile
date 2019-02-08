@@ -2,12 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:helpers="clr-namespace:TSM.Helpers;assembly=TSM"
              x:Class="TSM.Views.SchedulePages.SummaryPage"
              Title="Podsumowanie">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:InvertBoolConverter x:Key="cnvInvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <dg:DataGrid ItemsSource="{Binding WorkHours}" RowHeight="40" HeaderHeight="50" SelectionEnabled="True" BorderColor="#CCCCCC" HeaderBackground="#E0E6F8" ActiveRowColor="#8899AA"
-                         PullToRefreshCommand="{Binding LoadWorkHoursCommand}" IsRefreshing="{Binding IsBusy}" SortedColumnIndex="0">
+        <StackLayout Orientation="Vertical">
+            <dg:DataGrid ItemsSource="{Binding WorkHours}" 
+                         RowHeight="40" 
+                         HeaderHeight="50" 
+                         SelectionEnabled="True" 
+                         BorderColor="#CCCCCC" 
+                         HeaderBackground="#E0E6F8" 
+                         ActiveRowColor="#8899AA"
+                         PullToRefreshCommand="{Binding LoadWorkHoursCommand}" 
+                         IsRefreshing="{Binding IsBusy}" 
+                         SortedColumnIndex="0" 
+                         IsVisible="{Binding IsReportVisible}"
+                         VerticalOptions="FillAndExpand">
                 <x:Arguments>
                     <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
                 </x:Arguments>
@@ -30,30 +46,47 @@
             </dg:DataGrid>
             
 
-            <!--<ListView x:Name="MemberListView" 
+            <ListView x:Name="MemberListView" 
                       HasUnevenRows="True" 
                       ItemsSource="{Binding Members}" 
                       RefreshCommand="{Binding LoadMembersCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                      CachingStrategy="RecycleElement">
+                      CachingStrategy="RecycleElement"
+                      IsVisible="{Binding IsReportVisible, Converter={StaticResource cnvInvert}}"
+                      VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding User.FullName}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                                    <Label Text="{Binding DisplayHoursFromAssignedTime}" />
-                                    <Label Text="godzin" />
-                                    <Label Text="{Binding DisplayMinutesFromAssignedTime}"/>
-                                    <Label Text="minut /" />
-                                    <Label Text="{Binding Hours}" />
+                                <Label Text="{Binding DisplayAssignedTime, StringFormat='Zaplanowano {0}'}" >
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsOvertime}" Value="true">
+                                            <Setter Property="TextColor" Value="#E80000"></Setter>
+                                        </DataTrigger>
+                                    </Label.Triggers>    
+                                </Label>
+                                <Label Text="{Binding DisplayHours, StringFormat='Z możliwych {0}'}" />
                                 </StackLayout>
-                            </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
+
+            <Label VerticalOptions="End" IsVisible="{Binding IsReportVisible}" Text="Ilość osób z przypisanym zadaniem w danej godzinie."/>
+
+            <Button Command="{Binding ChangeSummaryCommand}" VerticalOptions="End"
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsReportVisible}" Value="true">
+                        <Setter Property="Text" Value="Wyświetl podsumowanie"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsReportVisible}" Value="false">
+                        <Setter Property="Text" Value="Wyświetl raport"/>
+                    </DataTrigger>
+                </Button.Triggers>    
+            </Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

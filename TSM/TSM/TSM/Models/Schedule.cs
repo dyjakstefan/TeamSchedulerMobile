@@ -24,8 +24,6 @@ namespace TSM.Models
 
         public bool IsActive => DateTime.Now >= StartAt && DateTime.Now <= EndAt;
 
-        public bool IsNotActive => !IsActive;
-
         public bool IsDescriptionNotEmpty => !string.IsNullOrWhiteSpace(Description);
     }
 }

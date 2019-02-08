@@ -22,8 +22,10 @@ namespace TSM.Models
 
         public List<WorkUnit> WorkUnits { get; set; }
 
-        public string DisplayHoursFromAssignedTime => $"{AssignedTime:hh}";
+        public string DisplayAssignedTime => $"{AssignedTime:hh\\:mm}";
 
-        public string DisplayMinutesFromAssignedTime => $"{AssignedTime:mm}";
+        public string DisplayHours => $"{Hours}:00";
+
+        public bool IsOvertime => AssignedTime.Hours > Hours;
     }
 }

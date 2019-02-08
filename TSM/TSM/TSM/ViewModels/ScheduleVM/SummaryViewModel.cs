@@ -16,6 +16,14 @@ namespace TSM.ViewModels.ScheduleVM
 
         private int scheduleId;
 
+        private bool isReportVisible;
+
+        public bool IsReportVisible
+        {
+            get { return isReportVisible; }
+            set { SetProperty(ref isReportVisible, value); }
+        }
+
         public ObservableCollection<Member> Members { get; set; }
 
         public ObservableCollection<WorkingHour> WorkHours { get; set; }
@@ -24,16 +32,20 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command LoadWorkHoursCommand { get; set; }
 
+        public Command ChangeSummaryCommand { get; set; }
+
         public INavigation Navigation { get; set; }
 
         public SummaryViewModel(INavigation navigation, int teamId, int scheduleId)
         {
             this.teamId = teamId;
             this.scheduleId = scheduleId;
+            IsReportVisible = false;
             Members = new ObservableCollection<Member>();
             WorkHours = new ObservableCollection<WorkingHour>();
             LoadMembersCommand = new Command(async () => await LoadMembers());
             LoadWorkHoursCommand = new Command(async () => await LoadWorkHours());
+            ChangeSummaryCommand = new Command(() => IsReportVisible = !isReportVisible);  
             Navigation = navigation;
         }
 

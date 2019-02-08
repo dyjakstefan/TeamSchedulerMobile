@@ -21,7 +21,7 @@ namespace TSM.Views.SchedulePages
 	    {
 	        base.OnAppearing();
             viewModel.LoadWorkHoursCommand.Execute(null);
-	        //viewModel.LoadMembersCommand.Execute(null);
+	        viewModel.LoadMembersCommand.Execute(null);
 	    }
     }
 }

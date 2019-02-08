@@ -46,7 +46,7 @@ namespace TSM.ViewModels.ScheduleVM
             {
                 Schedules.Clear();
                 var schedules = await apiService.GetAll<Schedule>(Team.Id, "schedules/all");
-                schedules = schedules.OrderBy(x => x.IsNotActive).ThenBy(x => x.StartAt).ToList();
+                schedules = schedules.OrderBy(x => !x.IsActive).ThenBy(x => x.StartAt).ToList();
                 foreach (var schedule in schedules)
                 {
                     Schedules.Add(schedule);

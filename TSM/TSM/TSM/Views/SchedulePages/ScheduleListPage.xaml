@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:TSM.Helpers;assembly=TSM"
              x:Class="TSM.Views.SchedulePages.ScheduleListPage" 
              x:Name="SchedulesView"
              Title="Plany">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:InvertBoolConverter x:Key="cnvInvert"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Icon="ic_action_new.png" Command="{Binding OnAddScheduleCommand}"/>
     </ContentPage.ToolbarItems>
@@ -26,10 +32,10 @@
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsNotActive}">
-                                    <Label Text="{Binding StartAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="MediumVioletRed"/>
-                                    <Label Text="-" FontSize="Small" TextColor="MediumVioletRed"/>
-                                    <Label Text="{Binding EndAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="MediumVioletRed"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsActive, Converter={StaticResource cnvInvert}}">
+                                    <Label Text="{Binding StartAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small"/>
+                                    <Label Text="-" FontSize="Small"/>
+                                    <Label Text="{Binding EndAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" IsVisible="{Binding IsActive}">
                                     <Label Text="{Binding StartAt.Date, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Small" TextColor="LimeGreen"/>
