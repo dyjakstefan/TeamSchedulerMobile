@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TSM.Helpers;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views.SchedulePages;
@@ -32,8 +33,8 @@ namespace TSM.ViewModels.ScheduleVM
             Team = team;
             Schedules = new ObservableCollection<Schedule>();
             LoadSchedulesCommand = new Command(async () => await LoadSchedules());
-            DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule), (schedule) => HasManagerPermissions);
-            OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule), (schedule) => HasManagerPermissions);
+            DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule), (x) => !IsBusy);
+            OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule), (x) => !IsBusy);
             OnAddScheduleCommand = new Command(async () => await OnAddSchedule(), () => !IsBusy);
             Navigation = navigation;
         }
@@ -64,8 +65,11 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async Task DeleteSchedule(Schedule schedule)
         {
-            if (isBusy)
+            if (!(HasManagerPermissions || schedule.CreatorId == Settings.UserId))
+            {
+                await Application.Current.MainPage.DisplayAlert("Brak dostępu", "Nie masz wystarczających uprawnień.", "Ok");
                 return;
+            }
 
             IsBusy = true;
             var shouldDelete = await Application.Current.MainPage.DisplayAlert("Delete", "Do you want to delete that schedule", "Ok", "Cancel");
@@ -89,7 +93,14 @@ namespace TSM.ViewModels.ScheduleVM
 
         private async Task EditSchedule(Schedule schedule)
         {
-            await Navigation.PushAsync(new EditSchedulePage(schedule));
+            if (HasManagerPermissions || schedule.CreatorId == Settings.UserId)
+            {
+                await Navigation.PushAsync(new EditSchedulePage(schedule));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Brak dostępu", "Nie masz wystarczających uprawnień.","Ok");
+            }
         }
 
         private async Task OnAddSchedule()
