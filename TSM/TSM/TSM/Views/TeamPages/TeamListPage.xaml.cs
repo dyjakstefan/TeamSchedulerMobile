@@ -1,4 +1,5 @@
 ﻿using System;
+using TSM.Helpers;
 using TSM.Models;
 using TSM.ViewModels.TeamVM;
 using Xamarin.Forms;
@@ -26,6 +27,7 @@ namespace TSM.Views.TeamPages
 	            return;
             }
 
+            Settings.UpdatePermissions(team.Members);
 	        await Navigation.PushAsync(new TeamPage(team));
 	        TeamListView.SelectedItem = null;
 	    }

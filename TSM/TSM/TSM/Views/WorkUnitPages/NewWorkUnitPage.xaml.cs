@@ -12,10 +12,10 @@ namespace TSM.Views.WorkUnitPages
 	{
 	    private NewWorkUnitViewModel viewModel;
 
-	    public NewWorkUnitPage(int scheduleId, List<Member> members, DayOfWeek day)
+	    public NewWorkUnitPage(Schedule schedule, List<Member> members, DayOfWeek day)
 	    {
 	        InitializeComponent();
-	        viewModel = new NewWorkUnitViewModel(Navigation, scheduleId, members, day);
+	        viewModel = new NewWorkUnitViewModel(Navigation, schedule, members, day);
 	        BindingContext = viewModel;
 	    }
     }

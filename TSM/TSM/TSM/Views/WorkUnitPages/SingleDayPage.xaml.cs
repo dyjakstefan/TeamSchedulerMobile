@@ -32,8 +32,9 @@ namespace TSM.Views.WorkUnitPages
 	    private async void OnWorkUnitSelected(object sender, SelectedItemChangedEventArgs args)
         {
             var workUnit = args.SelectedItem as WorkUnit;
-            if (workUnit == null)
+            if (workUnit == null || !(viewModel.HasManagerPermissions || viewModel.HasCreatorPermissions))
             {
+                WorkUnitsListView.SelectedItem = null;
                 return;
             }
 

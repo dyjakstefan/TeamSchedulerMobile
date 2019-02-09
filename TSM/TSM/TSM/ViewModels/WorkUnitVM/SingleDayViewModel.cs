@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TSM.Helpers;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views.WorkUnitPages;
@@ -30,6 +31,8 @@ namespace TSM.ViewModels.WorkUnitVM
         public Command OnWorkUnitSelectedCommand { get; set; }
 
         public INavigation Navigation { get; set; }
+
+        public bool HasCreatorPermissions => Schedule.CreatorId == Settings.UserId;
 
         public SingleDayViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
         {
@@ -72,7 +75,14 @@ namespace TSM.ViewModels.WorkUnitVM
 
         private async Task OnAddWorkUnit()
         {
-            await Navigation.PushAsync(new NewWorkUnitPage(Schedule.Id, Members, day));
+            if (HasManagerPermissions || HasCreatorPermissions)
+            {
+                await Navigation.PushAsync(new NewWorkUnitPage(Schedule, Members, day));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Brak dostępu", "Nie masz odpowiednich uprawnień.", "OK");
+            }
         }
     }
 }

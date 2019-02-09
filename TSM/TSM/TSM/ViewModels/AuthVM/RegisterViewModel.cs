@@ -80,13 +80,14 @@ namespace TSM.ViewModels.AuthVM
                 });
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
-                Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
-                var rootPage = Navigation.NavigationStack.FirstOrDefault();
-                if (rootPage != null)
-                {
-                    Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.First());
-                    await Navigation.PopToRootAsync();
-                }
+                //Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
+                //var rootPage = Navigation.NavigationStack.FirstOrDefault();
+                //if (rootPage != null)
+                //{
+                //    Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.First());
+                //    await Navigation.PopToRootAsync();
+                //}
+                Application.Current.MainPage = new MainPage();
             }
             catch (Exception e)
             {

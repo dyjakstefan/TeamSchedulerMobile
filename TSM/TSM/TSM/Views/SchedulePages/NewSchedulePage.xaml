@@ -14,11 +14,11 @@
             <Label Text="Koniec" FontSize="Small" FontAttributes="Bold"  />
             <DatePicker Date="{Binding EndAt}"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Label Text="Początek" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                <Label Text="Początek czasu pracy" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
                 <TimePicker Time="{Binding StartOfWorkingTime}" Format="HH:mm" HorizontalOptions="End"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
-                <Label Text="Koniec" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
+                <Label Text="Koniec czasu pracy" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalTextAlignment="Center"/>
                 <TimePicker Time="{Binding EndOfWorkingTime}" Format="HH:mm" HorizontalOptions="End"/>
             </StackLayout>
 

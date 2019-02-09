@@ -32,8 +32,8 @@ namespace TSM.ViewModels.ScheduleVM
             Team = team;
             Schedules = new ObservableCollection<Schedule>();
             LoadSchedulesCommand = new Command(async () => await LoadSchedules());
-            DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule));
-            OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule));
+            DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule), (schedule) => HasManagerPermissions);
+            OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule), (schedule) => HasManagerPermissions);
             OnAddScheduleCommand = new Command(async () => await OnAddSchedule(), () => !IsBusy);
             Navigation = navigation;
         }

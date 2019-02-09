@@ -80,7 +80,9 @@ namespace TSM.ViewModels.ScheduleVM
             Navigation = navigation;
             this.teamId = teamId;
             StartAt = DateTime.Now;
-            EndAt = DateTime.Now;
+            EndAt = DateTime.Now.AddDays(7);
+            StartOfWorkingTime = new TimeSpan(8, 0, 0);
+            EndOfWorkingTime = new TimeSpan(16, 0, 0);
         }
 
         protected async Task AddSchedule()

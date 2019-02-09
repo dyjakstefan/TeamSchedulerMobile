@@ -20,6 +20,8 @@ namespace TSM.Models
 
         public TimeSpan EndOfWorkingTime { get; set; }
 
+        public int CreatorId { get; set; }
+
         public int TeamId { get; set; }
 
         public bool IsActive => DateTime.Now >= StartAt && DateTime.Now <= EndAt;

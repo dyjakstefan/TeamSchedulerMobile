@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TSM.Models;
 
 namespace TSM.Dto
@@ -8,6 +9,8 @@ namespace TSM.Dto
         public int ScheduleId { get; set; }
 
         public int MemberId { get; set; }
+
+        public DayOfWeek Day { get; set; }
 
         public List<WorkUnit> WorkUnits { get; set; }
     }

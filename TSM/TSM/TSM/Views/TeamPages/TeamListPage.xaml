@@ -21,8 +21,10 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Text="Edytuj" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.EditTeamCommand}" CommandParameter="{Binding .}" x:Name="EditTeam"/>
-                                <MenuItem Text="Usuń" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.DeleteTeamCommand}" CommandParameter="{Binding .}" x:Name="DeleteTeam" IsDestructive="True"/>
+                                <MenuItem Text="Edytuj" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.EditTeamCommand}" 
+                                          CommandParameter="{Binding .}" x:Name="EditTeam" />
+                                <MenuItem Text="Usuń" Command="{Binding Source={x:Reference Name=TeamsView}, Path=BindingContext.DeleteTeamCommand}" 
+                                          CommandParameter="{Binding .}" x:Name="DeleteTeam" IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <StackLayout Padding="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
                                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>

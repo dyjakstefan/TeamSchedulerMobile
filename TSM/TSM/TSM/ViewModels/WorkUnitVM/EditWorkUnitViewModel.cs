@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using TSM.Dto;
 using TSM.Models;
@@ -14,6 +15,8 @@ namespace TSM.ViewModels.WorkUnitVM
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
         private int scheduleId;
+
+        private DayOfWeek day;
 
         public new bool IsBusy
         {
@@ -44,8 +47,8 @@ namespace TSM.ViewModels.WorkUnitVM
             OnDeleteWorkUnitCommand = new Command(DeleteWorkUnit);
             Navigation = navigation;
             this.scheduleId = scheduleId;
-
             WorkUnits = new ObservableCollection<WorkUnit>(memberList.WorkUnits);
+            day = WorkUnits.First().DayOfWeek;
         }
 
         protected async Task EditWorkUnit()
@@ -58,6 +61,7 @@ namespace TSM.ViewModels.WorkUnitVM
                 {
                     MemberId = MemberList.MemberId,
                     ScheduleId = scheduleId,
+                    Day = day,
                     WorkUnits = new List<WorkUnit>(WorkUnits)
                 };
                 await apiService.Update(workUnitListDto, "workunit/list");

@@ -7,7 +7,7 @@
         <StackLayout Padding="15">
             <Label Text="Email" FontAttributes="Bold" />
             <Entry x:Name="NameEntry" Text="{Binding Email}" FontSize="Small" />
-            <Label Text="Godziny" FontAttributes="Bold" />
+            <Label Text="Tygodniowy limit godzin" FontAttributes="Bold" />
             <StackLayout Orientation="Horizontal" HorizontalOptions="Fill">
                 <Entry x:Name="HoursEntry" Text="{Binding Hours}" HorizontalOptions="FillAndExpand" />
                 <Stepper Maximum="1000" Minimum="0" Increment="1" HorizontalOptions="End" Value="{Binding Hours}"/>

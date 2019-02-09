@@ -26,8 +26,8 @@ namespace TSM.ViewModels.TeamVM
         {
             Teams = new ObservableCollection<Team>();
             LoadTeamsCommand = new Command(async () => await LoadTeams());
-            EditTeamCommand = new Command<Team>(async (team) => await EditTeam(team));
-            DeleteTeamCommand = new Command<Team>(async (team) => await DeleteTeam(team));
+            EditTeamCommand = new Command<Team>(async (team) => await EditTeam(team), (team) => HasManagerPermissions);
+            DeleteTeamCommand = new Command<Team>(async (team) => await DeleteTeam(team), (team) => HasManagerPermissions);
             Navigation = navigation;
         }
 

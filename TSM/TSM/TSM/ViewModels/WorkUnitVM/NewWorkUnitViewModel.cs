@@ -13,7 +13,7 @@ namespace TSM.ViewModels.WorkUnitVM
     {
         private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
 
-        private int scheduleId;
+        private Schedule schedule;
 
         private DayOfWeek day;
 
@@ -51,14 +51,14 @@ namespace TSM.ViewModels.WorkUnitVM
 
         public Command OnDeleteWorkUnitCommand { get; protected set; }
 
-        public NewWorkUnitViewModel(INavigation navigation, int scheduleId, List<Member> members, DayOfWeek day)
+        public NewWorkUnitViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
         {
             Members = members;
             AddWorkUnitCommand = new Command(async () => await AddWorkUnit(), () => !IsBusy && SelectedMember != null);
             OnAddWorkUnitEntryCommand = new Command(AddWorkUnitEntry, () => !IsBusy);
             OnDeleteWorkUnitCommand = new Command(DeleteWorkUnit);
             Navigation = navigation;
-            this.scheduleId = scheduleId;
+            this.schedule = schedule;
             this.day = day;
 
             WorkUnits = new ObservableCollection<WorkUnit>();
@@ -74,7 +74,7 @@ namespace TSM.ViewModels.WorkUnitVM
                 var workUnitListDto = new WorkUnitListDto
                 {
                     MemberId = SelectedMember.Id,
-                    ScheduleId = scheduleId,
+                    ScheduleId = schedule.Id,
                     WorkUnits = new List<WorkUnit>(WorkUnits)
                 };
                 await apiService.Add(workUnitListDto, "workunit/list");
@@ -92,7 +92,7 @@ namespace TSM.ViewModels.WorkUnitVM
 
         protected void AddWorkUnitEntry()
         {
-            WorkUnits.Add(new WorkUnit { Start = new TimeSpan(0, 8, 0, 0), End = new TimeSpan(0, 16, 0, 0), DayOfWeek = day});
+            WorkUnits.Add(new WorkUnit { Start = schedule.StartOfWorkingTime, End = schedule.EndOfWorkingTime, DayOfWeek = day});
         }
 
         protected void DeleteWorkUnit(object obj)

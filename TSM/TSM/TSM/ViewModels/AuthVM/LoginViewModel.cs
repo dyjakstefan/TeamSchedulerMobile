@@ -57,6 +57,7 @@ namespace TSM.ViewModels.AuthVM
                 var jwt = await authService.Login(email, password);
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
+                Settings.UserId = jwt.UserId;
                 //Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
                 //await Navigation.PopAsync();
                 Application.Current.MainPage = new MainPage();

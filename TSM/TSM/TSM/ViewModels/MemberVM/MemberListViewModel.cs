@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using TSM.Helpers;
 using TSM.Models;
 using TSM.Services;
 using TSM.Views.MemberPages;
@@ -43,6 +44,8 @@ namespace TSM.ViewModels.MemberVM
                 {
                     Members.Add(member);
                 }
+
+                Team.Members = team.Members;
             }
             catch (Exception e)
             {
@@ -56,7 +59,14 @@ namespace TSM.ViewModels.MemberVM
 
         private async Task OnAddMember()
         {
-            await Navigation.PushAsync(new NewMemberPage(Team.Id));
+            if (Settings.HasManagerPermissions)
+            {
+                await Navigation.PushAsync(new NewMemberPage(Team.Id));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Brak dostępu", "Nie masz odpowiednich uprawnień.", "OK");
+            }
         }
     }
 }
