@@ -22,7 +22,7 @@ namespace TSM.Models
 
         public List<WorkUnit> WorkUnits { get; set; }
 
-        public string DisplayAssignedTime => $"{AssignedTime:hh\\:mm}";
+        public string DisplayAssignedTime => $"{AssignedTime.Hours + AssignedTime.Days * 24}:{AssignedTime:mm}";
 
         public string DisplayHours => $"{Hours}:00";
 
