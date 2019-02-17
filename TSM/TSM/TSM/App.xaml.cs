@@ -23,8 +23,6 @@ namespace TSM
 
             builder.RegisterInstance(new ApiService()).As<IApiService>();
             builder.RegisterInstance(new AuthService()).As<IAuthService>();
-            builder.RegisterType<LoginViewModel>();
-            builder.RegisterType<NewWorkUnitViewModel>();
 
             Container = builder.Build();
             Xamarin.Forms.DataGrid.DataGridComponent.Init();

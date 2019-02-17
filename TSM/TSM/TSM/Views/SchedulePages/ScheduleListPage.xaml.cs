@@ -1,4 +1,6 @@
-﻿using TSM.Models;
+﻿using Autofac;
+using TSM.Models;
+using TSM.Services;
 using TSM.ViewModels.ScheduleVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +15,10 @@ namespace TSM.Views.SchedulePages
         public ScheduleListPage(Team team)
         {
             InitializeComponent();
-            viewModel = new ScheduleListViewModel(Navigation, team);
+            using (var scope = App.Container.BeginLifetimeScope())
+            {
+                viewModel = new ScheduleListViewModel(App.Container.Resolve<IApiService>(), Navigation, team);
+            }
             BindingContext = viewModel;
         }
 

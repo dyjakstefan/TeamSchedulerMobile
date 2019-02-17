@@ -10,7 +10,7 @@ namespace TSM.ViewModels.MemberVM
 {
     public class NewMemberViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private string email;
 
@@ -54,11 +54,12 @@ namespace TSM.ViewModels.MemberVM
 
         public Command AddMemberCommand { get; protected set; }
 
-        public NewMemberViewModel(INavigation navigation, int teamId)
+        public NewMemberViewModel(IApiService apiService, INavigation navigation, int teamId)
         {
-            AddMemberCommand = new Command(async () => await AddMember(), () => !IsBusy);
+            this.apiService = apiService;
             Navigation = navigation;
             this.teamId = teamId;
+            AddMemberCommand = new Command(async () => await AddMember(), () => !IsBusy);
             Titles = new List<string>();
             Titles.Add(JobTitle.Manager.ToString());
             Titles.Add(JobTitle.Employee.ToString());

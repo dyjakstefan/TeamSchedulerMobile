@@ -13,5 +13,6 @@ namespace TSM.Services
         Task Add<T>(T payload, string url);
         Task Update<T>(T payload, string url);
         Task Delete<T>(T payload, string url);
+        bool UpdateAuthorizationHeader();
     }
 }

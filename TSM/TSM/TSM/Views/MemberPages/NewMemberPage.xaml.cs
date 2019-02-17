@@ -1,5 +1,7 @@
 ﻿using System;
+using Autofac;
 using TSM.Enums;
+using TSM.Services;
 using TSM.ViewModels.MemberVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +16,10 @@ namespace TSM.Views.MemberPages
 	    public NewMemberPage(int teamId)
 	    {
 	        InitializeComponent();
-	        viewModel = new NewMemberViewModel(Navigation, teamId);
+	        using (var scope = App.Container.BeginLifetimeScope())
+	        {
+	            viewModel = new NewMemberViewModel(App.Container.Resolve<IApiService>(), Navigation, teamId);
+	        }
 	        BindingContext = viewModel;
 	        TitlePicker.SelectedIndex = (int)viewModel.JobTitle;
         }

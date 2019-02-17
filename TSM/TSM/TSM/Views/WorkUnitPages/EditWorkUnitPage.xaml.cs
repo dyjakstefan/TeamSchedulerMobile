@@ -1,4 +1,6 @@
-﻿using TSM.Models;
+﻿using Autofac;
+using TSM.Models;
+using TSM.Services;
 using TSM.ViewModels.WorkUnitVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,8 +15,11 @@ namespace TSM.Views.WorkUnitPages
 	    public EditWorkUnitPage(int scheduleId, MemberList memberList)
 	    {
 	        InitializeComponent();
-	        viewModel = new EditWorkUnitViewModel(Navigation, scheduleId, memberList);
-	        BindingContext = viewModel;
+	        using (var scope = App.Container.BeginLifetimeScope())
+	        {
+	            viewModel = new EditWorkUnitViewModel(App.Container.Resolve<IApiService>(), Navigation, scheduleId, memberList);
+	        }
+            BindingContext = viewModel;
 	    }
     }
 }

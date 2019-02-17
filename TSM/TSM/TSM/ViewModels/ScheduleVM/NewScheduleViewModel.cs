@@ -8,7 +8,7 @@ namespace TSM.ViewModels.ScheduleVM
 {
     public class NewScheduleViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private string name;
 
@@ -74,11 +74,12 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command AddScheduleCommand { get; protected set; }
 
-        public NewScheduleViewModel(INavigation navigation, int teamId)
+        public NewScheduleViewModel(IApiService apiService, INavigation navigation, int teamId)
         {
-            AddScheduleCommand = new Command(async () => await AddSchedule(), () => !IsBusy);
             Navigation = navigation;
             this.teamId = teamId;
+            AddScheduleCommand = new Command(async () => await AddSchedule(), () => !IsBusy);
+            this.apiService = apiService;
             StartAt = DateTime.Now;
             EndAt = DateTime.Now.AddDays(7);
             StartOfWorkingTime = new TimeSpan(8, 0, 0);

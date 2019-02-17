@@ -24,8 +24,7 @@ namespace TSM.UnitTests
             var schedule = new Schedule() { Id = 1 };
             var apiService = Substitute.For<IApiService>();
             apiService.Add(Arg.Any<object>(), Arg.Any<string>()).ReturnsForAnyArgs(Task.CompletedTask);
-            var viewmodel = new NewWorkUnitViewModel(apiService);
-            viewmodel.Initialize(navigation, schedule, new List<Member>(), DayOfWeek.Monday);
+            var viewmodel = new NewWorkUnitViewModel(apiService, navigation, schedule, new List<Member>(), DayOfWeek.Monday);
             viewmodel.SelectedMember = new Member() { Id = 1, UserId = 1 };
 
             //Act
@@ -43,8 +42,7 @@ namespace TSM.UnitTests
             var schedule = new Schedule() { Id = 1 };
             var apiService = Substitute.For<IApiService>();
             apiService.Add(Arg.Any<object>(), Arg.Any<string>()).ReturnsForAnyArgs(Task.CompletedTask);
-            var viewModel = new NewWorkUnitViewModel(apiService);
-            viewModel.Initialize(navigation, schedule, new List<Member>(), DayOfWeek.Monday);
+            var viewModel = new NewWorkUnitViewModel(apiService, navigation, schedule, new List<Member>(), DayOfWeek.Monday);
             var selectedMember = new Member() { Id = 1 };
             viewModel.SelectedMember = selectedMember;
 
@@ -63,8 +61,7 @@ namespace TSM.UnitTests
             var navigation = Substitute.For<INavigation>();
             var schedule = new Schedule() { Id = 1 };
             var apiService = Substitute.For<IApiService>();
-            var viewModel = new NewWorkUnitViewModel(apiService);
-            viewModel.Initialize(navigation, schedule, new List<Member>(), DayOfWeek.Monday);
+            var viewModel = new NewWorkUnitViewModel(apiService, navigation, schedule, new List<Member>(), DayOfWeek.Monday);
             var quantity = viewModel.WorkUnits.Count;
 
             //Act
@@ -81,8 +78,7 @@ namespace TSM.UnitTests
             var navigation = Substitute.For<INavigation>();
             var schedule = new Schedule() { Id = 1 };
             var apiService = Substitute.For<IApiService>();
-            var viewModel = new NewWorkUnitViewModel(apiService);
-            viewModel.Initialize(navigation, schedule, new List<Member>(), DayOfWeek.Monday);
+            var viewModel = new NewWorkUnitViewModel(apiService, navigation, schedule, new List<Member>(), DayOfWeek.Monday);
 
             //Act
             viewModel.OnDeleteWorkUnitCommand.Execute(viewModel.WorkUnits[0]);

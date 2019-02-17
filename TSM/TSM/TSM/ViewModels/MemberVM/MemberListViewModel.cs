@@ -11,7 +11,7 @@ namespace TSM.ViewModels.MemberVM
 {
     public class MemberListViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         public Team Team { get; set; }
 
@@ -23,13 +23,14 @@ namespace TSM.ViewModels.MemberVM
 
         public INavigation Navigation { get; set; }
 
-        public MemberListViewModel(INavigation navigation, Team team)
+        public MemberListViewModel(IApiService apiService, INavigation navigation, Team team)
         {
+            this.apiService = apiService;
+            Navigation = navigation;
             Team = team;
             Members = new ObservableCollection<Member>(Team.Members);
             LoadMembersCommand = new Command(async () => await LoadMembers());
             OnAddMemberCommand = new Command(async () => await OnAddMember(), () => !IsBusy);
-            Navigation = navigation;
         }
 
         private async Task LoadMembers()

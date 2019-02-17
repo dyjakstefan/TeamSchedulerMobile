@@ -8,7 +8,7 @@ namespace TSM.ViewModels.ScheduleVM
 {
     public class EditScheduleViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private string name;
 
@@ -74,9 +74,8 @@ namespace TSM.ViewModels.ScheduleVM
 
         public Command EditScheduleCommand { get; protected set; }
 
-        public EditScheduleViewModel(INavigation navigation, Schedule schedule)
+        public EditScheduleViewModel(IApiService apiService, INavigation navigation, Schedule schedule)
         {
-            EditScheduleCommand = new Command(async () => await EditSchedule(), () => !IsBusy);
             Navigation = navigation;
             StartAt = schedule.StartAt;
             EndAt = schedule.EndAt;
@@ -85,6 +84,8 @@ namespace TSM.ViewModels.ScheduleVM
             scheduleId = schedule.Id;
             EndOfWorkingTime = schedule.EndOfWorkingTime;
             StartOfWorkingTime = schedule.StartOfWorkingTime;
+            this.apiService = apiService;
+            EditScheduleCommand = new Command(async () => await EditSchedule(), () => !IsBusy);
         }
 
         protected async Task EditSchedule()

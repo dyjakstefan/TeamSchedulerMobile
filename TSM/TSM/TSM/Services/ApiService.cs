@@ -21,6 +21,15 @@ namespace TSM.Services
             client.BaseAddress = new Uri(Settings.BaseAddress);
         }
 
+        public bool UpdateAuthorizationHeader()
+        {
+            if (!string.IsNullOrWhiteSpace(Settings.AccessToken))
+                return false;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.AccessToken);
+            return true;
+
+        }
+
         public async Task<T> Get<T>(string url)
         {
             var response = await client.GetAsync(url);

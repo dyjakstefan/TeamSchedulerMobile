@@ -11,7 +11,7 @@ namespace TSM.ViewModels.AuthVM
 {
     public class LoginViewModel : BaseViewModel
     {
-        private IAuthService authService => DependencyService.Get<IAuthService>() ?? new AuthService();
+        private readonly IAuthService authService;
 
         private string email;  
 
@@ -43,10 +43,11 @@ namespace TSM.ViewModels.AuthVM
 
         public Command SubmitCommand { get; protected set; }
 
-        public LoginViewModel(INavigation navigation)
+        public LoginViewModel(IAuthService authService, INavigation navigation)
         {
-            SubmitCommand = new Command(async () => await OnSubmit(), () => !IsBusy);
+            this.authService = authService;
             Navigation = navigation;
+            SubmitCommand = new Command(async () => await OnSubmit(), () => !IsBusy);
         }
 
         public async Task OnSubmit()
@@ -55,11 +56,13 @@ namespace TSM.ViewModels.AuthVM
             try
             {
                 var jwt = await authService.Login(email, password);
+                if (jwt == null)
+                {
+                    throw new Exception("Empty token.");
+                }
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
                 Settings.UserId = jwt.UserId;
-                //Navigation.InsertPageBefore(new MainPage(), Navigation.NavigationStack.Last());
-                //await Navigation.PopAsync();
                 Application.Current.MainPage = new MainPage();
             }
             catch (Exception e)

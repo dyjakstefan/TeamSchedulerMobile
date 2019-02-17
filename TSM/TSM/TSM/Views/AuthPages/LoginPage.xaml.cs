@@ -1,4 +1,6 @@
 ﻿using System;
+using Autofac;
+using TSM.Services;
 using TSM.ViewModels.AuthVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +15,11 @@ namespace TSM.Views
 		public LoginPage ()
 		{
 		    InitializeComponent();
-            viewModel = new LoginViewModel(Navigation);
+		    using (var scope = App.Container.BeginLifetimeScope())
+		    {
+		        viewModel = new LoginViewModel(App.Container.Resolve<IAuthService>(), Navigation);
+		    }
+
 		    BindingContext = viewModel;
 		    Email.Completed += (sender, e) => { Password.Focus(); };
 		    Password.Completed += (sender, e) => { viewModel.SubmitCommand.Execute(null); };

@@ -1,4 +1,6 @@
-﻿using TSM.Models;
+﻿using Autofac;
+using TSM.Models;
+using TSM.Services;
 using TSM.ViewModels.ScheduleVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +15,10 @@ namespace TSM.Views.SchedulePages
 	    public EditSchedulePage(Schedule schedule)
 	    {
 	        InitializeComponent();
-	        viewModel = new EditScheduleViewModel(Navigation, schedule);
+	        using (var scope = App.Container.BeginLifetimeScope())
+	        {
+	            viewModel = new EditScheduleViewModel(App.Container.Resolve<IApiService>(), Navigation, schedule);
+	        }
 	        BindingContext = viewModel;
 	        NameEntry.Completed += (sender, e) => { viewModel.EditScheduleCommand.Execute(null); };
 	    }

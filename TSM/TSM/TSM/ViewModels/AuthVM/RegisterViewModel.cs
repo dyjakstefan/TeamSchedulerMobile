@@ -12,7 +12,7 @@ namespace TSM.ViewModels.AuthVM
 {
     public class RegisterViewModel : BaseViewModel
     {
-        private IAuthService authService => DependencyService.Get<IAuthService>() ?? new AuthService();
+        private readonly IAuthService authService;
 
         private string firstName;
 
@@ -60,10 +60,11 @@ namespace TSM.ViewModels.AuthVM
 
         public Command RegisterCommand { get; protected set; }
 
-        public RegisterViewModel(INavigation navigation)
+        public RegisterViewModel(IAuthService authService, INavigation navigation)
         {
-            RegisterCommand = new Command(async () => await OnRegisterClicked(), () => !IsBusy);
             Navigation = navigation;
+            this.authService = authService;
+            RegisterCommand = new Command(async () => await OnRegisterClicked(), () => !IsBusy);
         }
 
         public async Task OnRegisterClicked()
@@ -80,13 +81,6 @@ namespace TSM.ViewModels.AuthVM
                 });
                 Settings.AccessToken = jwt.Token;
                 Settings.AccessTokenExpirationDate = DateTimeOffset.FromUnixTimeSeconds(jwt.Expires).LocalDateTime;
-                //Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.Last());
-                //var rootPage = Navigation.NavigationStack.FirstOrDefault();
-                //if (rootPage != null)
-                //{
-                //    Navigation.InsertPageBefore(new TeamListPage(), Navigation.NavigationStack.First());
-                //    await Navigation.PopToRootAsync();
-                //}
                 Application.Current.MainPage = new MainPage();
             }
             catch (Exception e)

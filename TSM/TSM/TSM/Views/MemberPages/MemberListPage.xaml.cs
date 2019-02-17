@@ -1,4 +1,6 @@
-﻿using TSM.Models;
+﻿using Autofac;
+using TSM.Models;
+using TSM.Services;
 using TSM.ViewModels.MemberVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,7 +15,10 @@ namespace TSM.Views.MemberPages
 	    public MemberListPage(Team team)
 	    {
 	        InitializeComponent();
-	        viewModel = new MemberListViewModel(Navigation, team);
+	        using (var scope = App.Container.BeginLifetimeScope())
+	        {
+	            viewModel = new MemberListViewModel(App.Container.Resolve<IApiService>(), Navigation, team);
+	        }
 	        BindingContext = viewModel;
 	    }
 

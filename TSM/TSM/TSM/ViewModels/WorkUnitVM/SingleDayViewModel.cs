@@ -14,7 +14,7 @@ namespace TSM.ViewModels.WorkUnitVM
 {
     public class SingleDayViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private DayOfWeek day;
 
@@ -34,15 +34,16 @@ namespace TSM.ViewModels.WorkUnitVM
 
         public bool HasCreatorPermissions => Schedule.CreatorId == Settings.UserId;
 
-        public SingleDayViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
+        public SingleDayViewModel(IApiService apiService, INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
         {
+            this.apiService = apiService;
             Schedule = schedule;
             Members = members;
             this.day = day;
+            Navigation = navigation;
             MembersWorkUnitsList = new ObservableCollection<MemberList>();
             LoadWorkUnitsCommand = new Command(async () => await LoadWorkUnits());
             OnAddWorkUnitCommand = new Command(async () => await OnAddWorkUnit(), () => !IsBusy);
-            Navigation = navigation;
         }
 
         private async Task LoadWorkUnits()

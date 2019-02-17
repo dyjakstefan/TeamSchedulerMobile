@@ -12,7 +12,7 @@ namespace TSM.ViewModels.ScheduleVM
 {
     public class ScheduleListViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         public Team Team { get; set; }
 
@@ -28,15 +28,16 @@ namespace TSM.ViewModels.ScheduleVM
 
         public INavigation Navigation { get; set; }
 
-        public ScheduleListViewModel(INavigation navigation, Team team)
+        public ScheduleListViewModel(IApiService apiService, INavigation navigation, Team team)
         {
+            this.apiService = apiService;
             Team = team;
+            Navigation = navigation;
             Schedules = new ObservableCollection<Schedule>();
             LoadSchedulesCommand = new Command(async () => await LoadSchedules());
             DeleteScheduleCommand = new Command<Schedule>(async (schedule) => await DeleteSchedule(schedule), (x) => !IsBusy);
             OnEditScheduleCommand = new Command<Schedule>(async (schedule) => await EditSchedule(schedule), (x) => !IsBusy);
             OnAddScheduleCommand = new Command(async () => await OnAddSchedule(), () => !IsBusy);
-            Navigation = navigation;
         }
 
         private async Task LoadSchedules()

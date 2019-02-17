@@ -11,7 +11,7 @@ namespace TSM.ViewModels.MemberVM
 {
     public class MemberDetailsViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private int hours;
 
@@ -50,14 +50,15 @@ namespace TSM.ViewModels.MemberVM
 
         public Command DeleteMemberCommand { get; protected set; }
 
-        public MemberDetailsViewModel(INavigation navigation, Member member)
+        public MemberDetailsViewModel(IApiService apiService, INavigation navigation, Member member)
         {
-            EditMemberCommand = new Command(async () => await EditMember(), () => !IsBusy);
-            DeleteMemberCommand = new Command(async () => await DeleteMember(), () => !IsBusy);
             Navigation = navigation;
             this.Member = member;
             Hours = member.Hours;
             JobTitle = member.Title;
+            EditMemberCommand = new Command(async () => await EditMember(), () => !IsBusy);
+            DeleteMemberCommand = new Command(async () => await DeleteMember(), () => !IsBusy);
+            this.apiService = apiService;
             Titles = new List<string>();
             Titles.Add(JobTitle.Manager.ToString());
             Titles.Add(JobTitle.Employee.ToString());

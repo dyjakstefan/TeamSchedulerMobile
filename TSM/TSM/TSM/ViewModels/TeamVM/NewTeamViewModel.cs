@@ -8,7 +8,7 @@ namespace TSM.ViewModels.TeamVM
 {
     public class NewTeamViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private string name;
 
@@ -32,8 +32,9 @@ namespace TSM.ViewModels.TeamVM
 
         public Command AddTeamCommand { get; protected set; }
 
-        public NewTeamViewModel(INavigation navigation)
+        public NewTeamViewModel(IApiService apiService, INavigation navigation)
         {
+            this.apiService = apiService;
             AddTeamCommand = new Command(async () => await AddTeam(), () => !IsBusy);
             Navigation = navigation;
         }

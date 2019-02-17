@@ -10,7 +10,7 @@ namespace TSM.ViewModels.TeamVM
 {
     public class TeamListViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         public ObservableCollection<Team> Teams { get; set; }
 
@@ -22,8 +22,9 @@ namespace TSM.ViewModels.TeamVM
 
         public INavigation Navigation { get; set; }
 
-        public TeamListViewModel(INavigation navigation)
+        public TeamListViewModel(IApiService apiService, INavigation navigation)
         {
+            this.apiService = apiService;
             Teams = new ObservableCollection<Team>();
             LoadTeamsCommand = new Command(async () => await LoadTeams());
             EditTeamCommand = new Command<Team>(async (team) => await EditTeam(team), (team) => HasManagerPermissions);
@@ -38,6 +39,7 @@ namespace TSM.ViewModels.TeamVM
             try
             {
                 Teams.Clear();
+                apiService.UpdateAuthorizationHeader();
                 var teams = await apiService.GetAll<Team>("teams/all");
                 foreach (var team in teams)
                 {

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Autofac;
 using TSM.Models;
+using TSM.Services;
 using TSM.ViewModels.WorkUnitVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,8 +21,11 @@ namespace TSM.Views.WorkUnitPages
 			InitializeComponent ();
             var polish = new CultureInfo("pl-PL");
 		    Title = polish.DateTimeFormat.DayNames[(int)day];
-		    viewModel = new SingleDayViewModel(Navigation, schedule, members, day);
-		    BindingContext = viewModel;
+		    using (var scope = App.Container.BeginLifetimeScope())
+		    {
+		        viewModel = new SingleDayViewModel(App.Container.Resolve<IApiService>(), Navigation, schedule, members, day);
+		    }
+            BindingContext = viewModel;
 		}
 
 	    protected override void OnAppearing()

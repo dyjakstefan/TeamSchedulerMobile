@@ -10,7 +10,7 @@ namespace TSM.ViewModels.ScheduleVM
 {
     public class SummaryViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private readonly IApiService apiService;
 
         private int teamId;
 
@@ -36,17 +36,18 @@ namespace TSM.ViewModels.ScheduleVM
 
         public INavigation Navigation { get; set; }
 
-        public SummaryViewModel(INavigation navigation, int teamId, int scheduleId)
+        public SummaryViewModel(IApiService apiService, INavigation navigation, int teamId, int scheduleId)
         {
+            this.apiService = apiService;
+            IsReportVisible = false;
             this.teamId = teamId;
             this.scheduleId = scheduleId;
-            IsReportVisible = false;
+            Navigation = navigation;
             Members = new ObservableCollection<Member>();
             WorkHours = new ObservableCollection<WorkingHour>();
             LoadMembersCommand = new Command(async () => await LoadMembers());
             LoadWorkHoursCommand = new Command(async () => await LoadWorkHours());
             ChangeSummaryCommand = new Command(() => IsReportVisible = !isReportVisible);  
-            Navigation = navigation;
         }
 
         private async Task LoadMembers()
