@@ -4,7 +4,7 @@
              x:Class="TSM.Views.MemberPages.NewMemberPage"             
              Title ="Dodaj członka">
     <ContentPage.Content>
-        <StackLayout Padding="15">
+        <StackLayout Padding="15" Spacing="20">
             <Label Text="Email" FontAttributes="Bold" />
             <Entry x:Name="NameEntry" Text="{Binding Email}" FontSize="Small" />
             <Label Text="Tygodniowy limit godzin" FontAttributes="Bold" />
@@ -17,7 +17,8 @@
             <Picker x:Name="TitlePicker"
                     ItemsSource="{Binding Titles}" SelectedIndexChanged="OnPickerSelectedIndexChanged" />
             <Button Command="{Binding AddMemberCommand}" Text="Dodaj"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"
+                    TextColor="White"  BackgroundColor="#3897F0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

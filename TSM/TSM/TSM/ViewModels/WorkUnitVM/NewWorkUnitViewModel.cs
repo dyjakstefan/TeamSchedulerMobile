@@ -11,7 +11,7 @@ namespace TSM.ViewModels.WorkUnitVM
 {
     public class NewWorkUnitViewModel : BaseViewModel
     {
-        private IApiService apiService => DependencyService.Get<IApiService>() ?? new ApiService();
+        private IApiService apiService;
 
         private Schedule schedule;
 
@@ -51,16 +51,20 @@ namespace TSM.ViewModels.WorkUnitVM
 
         public Command OnDeleteWorkUnitCommand { get; protected set; }
 
-        public NewWorkUnitViewModel(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
+        public NewWorkUnitViewModel(IApiService apiService)
         {
-            Members = members;
+            this.apiService = apiService;
             AddWorkUnitCommand = new Command(async () => await AddWorkUnit(), () => !IsBusy && SelectedMember != null);
             OnAddWorkUnitEntryCommand = new Command(AddWorkUnitEntry, () => !IsBusy);
             OnDeleteWorkUnitCommand = new Command(DeleteWorkUnit);
+        }
+
+        public void Initialize(INavigation navigation, Schedule schedule, List<Member> members, DayOfWeek day)
+        {
+            Members = members;
             Navigation = navigation;
             this.schedule = schedule;
             this.day = day;
-
             WorkUnits = new ObservableCollection<WorkUnit>();
             AddWorkUnitEntry();
         }
@@ -82,7 +86,7 @@ namespace TSM.ViewModels.WorkUnitVM
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Błąd", "Operacja nie powiodła się.", "OK");
             }
             finally
             {

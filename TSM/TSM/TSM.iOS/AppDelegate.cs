@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using TSM.Helpers;
 using UIKit;
 
 namespace TSM.iOS
@@ -23,8 +24,9 @@ namespace TSM.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            Settings.BaseAddress = "http://192.168.75.1:45455/api/";
             LoadApplication(new App());
-
+            Settings.BaseAddress = "http://192.168.75.1:45455/api/";
             return base.FinishedLaunching(app, options);
         }
     }

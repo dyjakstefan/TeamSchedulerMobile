@@ -26,6 +26,6 @@ namespace TSM.Models
 
         public string DisplayHours => $"{Hours}:00";
 
-        public bool IsOvertime => AssignedTime.Hours > Hours;
+        public bool IsOvertime => AssignedTime.Hours + AssignedTime.Days * 24 > Hours;
     }
 }

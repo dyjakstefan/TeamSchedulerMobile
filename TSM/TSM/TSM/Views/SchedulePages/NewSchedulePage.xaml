@@ -4,7 +4,7 @@
              x:Class="TSM.Views.SchedulePages.NewSchedulePage"
              Title="Dodaj plan">
     <ContentPage.Content>
-        <StackLayout Padding="15">
+        <StackLayout Padding="15" Spacing="10">
             <Label Text="Nazwa" FontSize="Small" FontAttributes="Bold" />
             <Entry x:Name="NameEntry" Text="{Binding Name}" />
             <Label Text="Opis" FontSize="Small" FontAttributes="Bold"  />
@@ -23,7 +23,8 @@
             </StackLayout>
 
             <Button Command="{Binding AddScheduleCommand}" Text="Zapisz" 
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"
+                    TextColor="White"  BackgroundColor="#3897F0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -8,7 +8,8 @@
             <Label Text="Nazwa" FontSize="Medium" />
             <Entry x:Name="NameEntry" Text="{Binding Name}" FontSize="Medium" />
             <Button Command="{Binding AddTeamCommand}" Text="Zapisz"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/> 
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"
+                    TextColor="White"  BackgroundColor="#3897F0"/> 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

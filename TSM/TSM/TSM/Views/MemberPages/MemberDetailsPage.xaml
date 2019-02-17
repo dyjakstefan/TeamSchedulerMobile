@@ -10,7 +10,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="15">
+        <StackLayout Padding="15" Spacing="20">
             <Label Text="Imię i nazwisko" FontSize="Small" FontAttributes="Bold"/>
             <Label Text="{Binding Member.User.FullName}" FontSize="Large" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
             <Label Text="Email" FontSize="Small" FontAttributes="Bold"/>
@@ -27,9 +27,11 @@
             <Label Text="{Binding JobTitle}" FontSize="Large" IsVisible="{Binding HasManagerPermissions, Converter={StaticResource cnvInvert}}"/>
 
             <Button Command="{Binding EditMemberCommand}" Text="Zapisz" IsVisible="{Binding HasManagerPermissions}"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50" 
+                    TextColor="White"  BackgroundColor="#3897F0"/>
             <Button Command="{Binding DeleteMemberCommand}" Text="Usuń członka" IsVisible="{Binding HasManagerPermissions}"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50"/>
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50" 
+                    TextColor="White"  BackgroundColor="#3897F0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

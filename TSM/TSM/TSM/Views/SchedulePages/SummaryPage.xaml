@@ -17,7 +17,7 @@
                          HeaderHeight="50" 
                          SelectionEnabled="True" 
                          BorderColor="#CCCCCC" 
-                         HeaderBackground="#E0E6F8" 
+                         HeaderBackground="#E0E6F8"
                          ActiveRowColor="#8899AA"
                          PullToRefreshCommand="{Binding LoadWorkHoursCommand}" 
                          IsRefreshing="{Binding IsBusy}" 
@@ -27,8 +27,13 @@
                 <x:Arguments>
                     <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
                 </x:Arguments>
+                <dg:DataGrid.HeaderLabelStyle>
+                    <Style x:Key="LabelStyle" TargetType="Label">
+                        <Setter Property="TextColor" Value="Black"></Setter>
+                    </Style>
+                </dg:DataGrid.HeaderLabelStyle>
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="Godzina" PropertyName="DisplayTime" SortingEnabled="True" Width="2*"/>
+                    <dg:DataGridColumn Title="Godzina" PropertyName="DisplayTime" SortingEnabled="True" Width="3*"/>
                     <dg:DataGridColumn Title="Pn" PropertyName="QuantityForMonday" />
                     <dg:DataGridColumn Title="Wt" PropertyName="QuantityForTuesday" />
                     <dg:DataGridColumn Title="Śr" PropertyName="QuantityForWednesday" />
@@ -77,7 +82,7 @@
             <Label VerticalOptions="End" IsVisible="{Binding IsReportVisible}" Text="Ilość osób z przypisanym zadaniem w danej godzinie."/>
 
             <Button Command="{Binding ChangeSummaryCommand}" VerticalOptions="End"
-                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50">
+                    FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" HeightRequest="50" TextColor="White"  BackgroundColor="#3897F0">
                 <Button.Triggers>
                     <DataTrigger TargetType="Button" Binding="{Binding IsReportVisible}" Value="true">
                         <Setter Property="Text" Value="Wyświetl podsumowanie"/>

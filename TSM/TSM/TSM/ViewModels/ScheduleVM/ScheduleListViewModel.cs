@@ -72,7 +72,7 @@ namespace TSM.ViewModels.ScheduleVM
             }
 
             IsBusy = true;
-            var shouldDelete = await Application.Current.MainPage.DisplayAlert("Delete", "Do you want to delete that schedule", "Ok", "Cancel");
+            var shouldDelete = await Application.Current.MainPage.DisplayAlert(schedule.Name, "Czy napewno chcesz usunąć ten plan?", "Tak", "Nie");
             if (!shouldDelete)
                 return;
 

@@ -1,5 +1,9 @@
 ﻿using System;
+using Autofac;
 using TSM.Helpers;
+using TSM.Services;
+using TSM.ViewModels.AuthVM;
+using TSM.ViewModels.WorkUnitVM;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TSM.Views;
@@ -11,13 +15,22 @@ namespace TSM
     public partial class App : Application
     {
         public static App Instance;
+        public static IContainer Container { get; set; }
 
         public App()
         {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterInstance(new ApiService()).As<IApiService>();
+            builder.RegisterInstance(new AuthService()).As<IAuthService>();
+            builder.RegisterType<LoginViewModel>();
+            builder.RegisterType<NewWorkUnitViewModel>();
+
+            Container = builder.Build();
             Xamarin.Forms.DataGrid.DataGridComponent.Init();
             Instance = this;
+            Settings.BaseAddress = "http://192.168.75.1:45455/api/";
             InitializeComponent();
-            Settings.BaseAddress = "http://192.168.43.175:45455/api/";
             CleanNavigation();
         }
 

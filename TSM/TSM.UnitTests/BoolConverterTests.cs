@@ -6,7 +6,7 @@ using Xunit;
 
 namespace TSM.UnitTests
 {
-    public class UnitTest1
+    public class BoolConverterTests
     {
         [Fact]
         public void ConverterShouldReturnReversedBool()
